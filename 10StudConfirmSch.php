@@ -17,7 +17,7 @@ $_SESSION["appTime"] = $_POST["appTime"]; // radio button selection from previou
 		<form action = "StudProcessSch.php" method = "post" name = "SelectTime">
 	    <?php
 			$debug = false;
-			include('../CommonMethods.php');
+			include('CommonMethods.php');
 			$COMMON = new Common($debug);
 			
 			$firstn = $_SESSION["firstN"];

@@ -9,7 +9,7 @@ if(isset($_POST["advisor"])){
 $localAdvisor = $_SESSION["advisor"];
 $localMaj = $_SESSION["major"];
 
-include('../CommonMethods.php');
+include('CommonMethods.php');
 $COMMON = new Common($debug);
 
 $sql = "select * from Proj2Advisors where `id` = '$localAdvisor'";

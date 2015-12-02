@@ -2,7 +2,7 @@
 session_start();
 
 $debug = false;
-include('../CommonMethods.php');
+include('CommonMethods.php');
 $COMMON = new Common($debug);
 
 $sql = "select * from Proj2Students";

@@ -5,7 +5,7 @@ session_start();
 //error_reporting (E_ALL);
 
 $debug = false;
-include('../CommonMethods.php');
+include('CommonMethods.php');
 $COMMON = new Common($debug);
 ?>
 
