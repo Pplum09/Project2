@@ -5,10 +5,7 @@ include('../CommonMethods.php');
 $COMMON = new Common($debug); 
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
+<?php include('header.php'); ?>
     <title>Search Appointments</title>
     <script type="text/javascript">
     function saveValue(target){
@@ -234,6 +231,5 @@ $COMMON = new Common($debug);
 
 	</div>
 	</form>
-  </body>
-  
-</html>
+<?php include('footer.php'); ?>
+

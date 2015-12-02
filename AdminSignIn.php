@@ -2,10 +2,7 @@
 session_start();
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
+<?php include('header.php'); ?>
     <title>UMBC COEIT Engineering and Computer Science Advising Admin Sign In</title>
 	<link rel='stylesheet' type='text/css' href='../css/standard.css'/>
   </head>
@@ -38,6 +35,5 @@ session_start();
 	    </div>
 	</div>
 	</form>
-  </body>
-  
-</html>
+<?php include('footer.php'); ?>
+

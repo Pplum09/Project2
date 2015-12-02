@@ -2,10 +2,7 @@
 session_start();
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
+<?php include('header.php'); ?>
     <title>Print Schedule</title>
     <script type="text/javascript">
     function saveValue(target){
@@ -228,6 +225,5 @@ session_start();
 	</div>
 	</div>
 	<?php include('./workOrder/workButton.php'); ?>
+<?php include('footer.php'); ?>
 
-  </body>
-</html>

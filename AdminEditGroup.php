@@ -3,10 +3,7 @@ session_start();
 $_SESSION["Delete"] = false;
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
+<?php include('header.php'); ?>
     <title>Edit Group Appointment</title>
     <script type="text/javascript">
     function saveValue(target){
@@ -93,6 +90,5 @@ $_SESSION["Delete"] = false;
   </div>
 	<?php include('./workOrder/workButton.php'); ?>
   </div>
-  </body>
-  
-</html>
+<?php include('footer.php'); ?>
+

@@ -265,5 +265,4 @@ $COMMON = new Common($debug);
 			<p>Click "Cancel" to cancel appointment. Click "Keep" to keep appointment.</p>
 		</div>
 		</form>
-  </body>
-</html>
+	      <?php include('footer.php'); ?>

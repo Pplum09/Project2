@@ -2,10 +2,7 @@
   session_start();
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
+<?php include('header.php'); ?>
     <title>Create New Admin</title>
     <script type="text/javascript">
     function saveValue(target){
@@ -236,6 +233,5 @@
 	</div>
 	</div>
 	</form>
-  </body>
-  
-</html>
+<?php include('footer.php'); ?>
+

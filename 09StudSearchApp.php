@@ -274,6 +274,4 @@ $COMMON = new Common($debug);
 	    </div>
 		</div>
 		</form>
-
-  </body>
-</html>
+			      <?php include('footer.php'); ?>

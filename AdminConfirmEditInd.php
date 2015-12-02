@@ -2,10 +2,7 @@
 session_start();
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
+<?php include('header.php'); ?>
     <title>Edit Individual Appointment</title>
     <script type="text/javascript">
     function saveValue(target){
@@ -86,6 +83,4 @@ session_start();
 	</div>
 	</div>
 	</form>
-  </body>
-  
-</html>
+<?php include('footer.php'); ?>

@@ -5,9 +5,7 @@ include('../CommonMethods.php');
 $COMMON = new Common($debug);
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
+<?php include('header.php'); ?>
 	<link rel='stylesheet' type='text/css' href='../css/standard.css'/>
   </head>
   <body>
@@ -116,6 +114,4 @@ $COMMON = new Common($debug);
 	</div>
 	</div>
 	</form>
-  </body>
-  
-</html>
+<?php include('footer.php'); ?>

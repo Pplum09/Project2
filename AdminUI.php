@@ -4,17 +4,14 @@ $debug = false;
 
 if($debug) { echo("Session variables-> ".var_dump($_SESSION)); }
 
-include('../CommonMethods.php');
+include('CommonMethods.php');
 $COMMON = new Common($debug);
 $_SESSION["PassCon"] = false;
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
+<?php include('header.php'); ?>
     <title>Admin Home</title>
-	<link rel='stylesheet' type='text/css' href='../css/standard.css'/>
+	<link rel='stylesheet' type='text/css' href='css/standard.css'/>
   </head>
   <body>
     <div id="login">
@@ -62,7 +59,5 @@ $_SESSION["PassCon"] = false;
 	</div>
 
 	<?php include('./workOrder/workButton.php'); ?>
+<?php include('footer.php'); ?>
 
-</body>
-  
-</html>

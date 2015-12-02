@@ -2,10 +2,7 @@
 session_start();
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
+<?php include('header.php'); ?>
     <title>Create New Admin</title>
 	<link rel='stylesheet' type='text/css' href='../css/standard.css'/>
 
@@ -73,5 +70,4 @@ session_start();
 	</div>
 	</div>
 	</div>
-  </body>
-</html>
+<?php include('footer.php'); ?>

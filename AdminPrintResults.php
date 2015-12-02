@@ -3,10 +3,7 @@ session_start();
 $debug = false;
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
+<?php include('header.php'); ?>
     <title>Print Schedule</title>
     <script type="text/javascript">
     function saveValue(target){
@@ -61,10 +58,8 @@ $debug = false;
 	</div>
 	<?php include('./workOrder/workButton.php'); ?>
 	</div>
+<?php include('footer.php'); ?>
 
-  </body>
-  
-</html>
 
 
 <?php

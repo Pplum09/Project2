@@ -2,10 +2,7 @@
 session_start();
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
+<?php include('header.php'); ?>
     <title>Edit Appointment</title>
     <style type="text/css">
       html{ 
@@ -231,7 +228,5 @@ session_start();
          
         </div>
 	</div>
+<?php include('footer.php'); ?>
 		
-  </body>
-  
-</html>

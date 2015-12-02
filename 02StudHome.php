@@ -21,7 +21,7 @@ session_start();
 		<form action="StudProcessHome.php" method="post" name="Home">
 	    <?php
 			$debug = false;
-			include('../CommonMethods.php');
+			include('../../CommonMethods.php');
 			$COMMON = new Common($debug);
 			
 			$_SESSION["studExist"] = false;
@@ -65,5 +65,4 @@ session_start();
 	    </div>
 		</div>
 		</form>
-  </body>
-</html>
+			    <?php include('footer.php'); ?>

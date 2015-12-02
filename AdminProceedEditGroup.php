@@ -2,9 +2,7 @@
 session_start();
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
+<?php include('header.php'); ?>
     <meta charset="UTF-8" />
     <title>Edit Group Appointment</title>
     <script type="text/javascript">
@@ -59,6 +57,5 @@ session_start();
   </div>
   </div>
   </form>
-  </body>
-  
-</html>
+<?php include('footer.php'); ?>
+

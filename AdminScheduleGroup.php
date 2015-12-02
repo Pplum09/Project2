@@ -2,9 +2,7 @@
 session_start();
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
+<?php include('header.php'); ?>
 	<link rel='stylesheet' type='text/css' href='../css/standard.css'/>
   </head>
   <body>
@@ -87,8 +85,4 @@ session_start();
 			<input type="submit" name="next" class="button large" value="Cancel">
 		</form>
 	<?php include('./workOrder/workButton.php'); ?>
-
-
-  </body>
-  
-</html>
+<?php include('footer.php'); ?>

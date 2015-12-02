@@ -16,7 +16,7 @@ then edit .htaccess file here in the same directory
 
 session_start();
 
-include('../CommonMethods.php');
+include('CommonMethods.php');
 $debug = false;
 $Common = new Common($debug);
 
