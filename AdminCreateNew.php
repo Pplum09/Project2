@@ -209,7 +209,7 @@
 			$user = $_SESSION["AdvUN"];
 			$pass = $_SESSION["AdvPW"];
 
-			include('../CommonMethods.php');
+			include('CommonMethods.php');
 			$debug = false;
 			$Common = new Common($debug);
 

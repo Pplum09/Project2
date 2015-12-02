@@ -1,7 +1,7 @@
 <?php
 session_start();
 $debug = false;
-include('../CommonMethods.php');
+include('CommonMethods.php');
 $COMMON = new Common($debug); 
 ?>
 
@@ -13,7 +13,7 @@ $COMMON = new Common($debug);
 	alert("Value: " + stepVal);
     }
     </script>
-	<link rel='stylesheet' type='text/css' href='../css/standard.css'/>
+	<link rel='stylesheet' type='text/css' href='css/standard.css'/>
   </head>
   <body>
     <div id="login">
@@ -227,7 +227,6 @@ $COMMON = new Common($debug);
 	<div class="bottom">
 		<p>If the Major category is followed by a blank, then it is open for all majors.</p>
 	</div>
-	<?php include('./workOrder/workButton.php'); ?>
 
 	</div>
 	</form>

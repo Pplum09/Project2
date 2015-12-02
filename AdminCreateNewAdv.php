@@ -4,7 +4,7 @@ session_start();
 
 <?php include('header.php'); ?>
     <title>Create New Admin</title>
-	<link rel='stylesheet' type='text/css' href='../css/standard.css'/>
+	<link rel='stylesheet' type='text/css' href='css/standard.css'/>
 
      <script type="text/javascript">
     //   window.onload = function () {

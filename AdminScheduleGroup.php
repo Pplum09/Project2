@@ -3,7 +3,7 @@ session_start();
 ?>
 
 <?php include('header.php'); ?>
-	<link rel='stylesheet' type='text/css' href='../css/standard.css'/>
+	<link rel='stylesheet' type='text/css' href='css/standard.css'/>
   </head>
   <body>
     <div id="login">
@@ -84,5 +84,4 @@ session_start();
 		<form method="link" action="AdminUI.php" name="home">
 			<input type="submit" name="next" class="button large" value="Cancel">
 		</form>
-	<?php include('./workOrder/workButton.php'); ?>
 <?php include('footer.php'); ?>

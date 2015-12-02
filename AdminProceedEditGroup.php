@@ -11,7 +11,7 @@ session_start();
       alert("Value: " + stepVal);
     }
     </script>
-	<link rel='stylesheet' type='text/css' href='../css/standard.css'/>
+	<link rel='stylesheet' type='text/css' href='css/standard.css'/>
   </head> 
   <body>
     <div id="login">
@@ -21,7 +21,7 @@ session_start();
 		  <div class="field">
           <?php
             $debug = false;
-            include('../CommonMethods.php');
+            include('CommonMethods.php');
             $COMMON = new Common($debug);
 
             $group = $_SESSION["GroupApp"];

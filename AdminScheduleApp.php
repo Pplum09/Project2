@@ -4,7 +4,7 @@ session_start();
 
 <?php include('header.php'); ?>
     <title>Schedule Appointment</title>
-	<link rel='stylesheet' type='text/css' href='../css/standard.css'/>
+	<link rel='stylesheet' type='text/css' href='css/standard.css'/>
   </head>
   <body>
     <div id="login">

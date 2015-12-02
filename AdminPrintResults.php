@@ -11,7 +11,7 @@ $debug = false;
 	alert("Value: " + stepVal);
     }
     </script>
-	<link rel='stylesheet' type='text/css' href='../css/standard.css'/>
+	<link rel='stylesheet' type='text/css' href='css/standard.css'/>
   </head>
   <body>
     <div id="login">
@@ -23,7 +23,7 @@ $debug = false;
 	$date = $_POST["date"];
 	$type = $_POST["type"];
 			
-	include('../CommonMethods.php');
+	include('CommonMethods.php');
 	$COMMON = new Common($debug);
 
 

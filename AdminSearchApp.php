@@ -1,7 +1,7 @@
 <?php
 session_start();
 $debug = false;
-include('../CommonMethods.php');
+include('CommonMethods.php');
 $COMMON = new Common($debug); 
 ?>
 
@@ -276,6 +276,5 @@ $COMMON = new Common($debug);
 	<form method="link" action="AdminUI.php">
 	<input type="submit" name="next" class="button large go" value="Return to Home">
 	</form>
-	<?php include('./workOrder/workButton.php'); ?>
 <?php include('footer.php'); ?>
 
