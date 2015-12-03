@@ -1,7 +1,7 @@
 <?php
 session_start();
 $debug = false;
-include('../CommonMethods.php');
+include('CommonMethods.php');
 $COMMON = new Common($debug);
 
 if($_POST["cancel"] == 'Cancel'){

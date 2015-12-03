@@ -36,12 +36,16 @@ $studID = $_SESSION["studID"];
 					$rs2 = $COMMON->executeQuery($sql2, $_SERVER["SCRIPT_NAME"]);
 					$row2 = mysql_fetch_row($rs2);
 					$advisorName = $row2[1] . " " . $row2[2];
+					$location = $row2[5];
+					$room = $row2[6];
 				}
 				else{$advisorName = "Group";}
 			
 				echo "<label for='info'>";
 				echo "Advisor: ", $advisorName, "<br>";
-				echo "Appointment: ", date('l, F d, Y g:i A', $datephp), "</label>";
+				echo "Appointment: ", date('l, F d, Y g:i A', $datephp), "<br>";
+				echo "Location: ", $location, "<br>";
+				echo "Room: ", $room, "</label>";
 			}
 			else // something is up, and there DB table needs to be fixed
 			{

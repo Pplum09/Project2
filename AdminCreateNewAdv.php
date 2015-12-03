@@ -57,6 +57,17 @@ session_start();
 	     		<label for="ConfP">Confirm Password</label>
 	      		<input id="ConfP" size="20" maxlength="50" type="password" name="ConfP" required>
 	   	</div>	
+
+                <div class="field">
+                        <label for="Loc">Location</label>
+                        <input id="Loc" size="20" maxlength="50" type="text" name="Loc" required>
+                </div>
+
+                <div class="field">
+                        <label for="Room">Room Number</label>
+                        <input id="Room" size="20" maxlength="3" type="text" name="Room" required>
+                </div>
+
 		<br>
 
 		<div class="nextButton">

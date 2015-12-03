@@ -22,7 +22,7 @@ $advisorName = $row[1]." ".$row[2];
   <head>
     <meta charset="UTF-8" />
     <title>Select Appointment</title>
-	<link rel='stylesheet' type='text/css' href='../css/standard.css'/>
+	<link rel='stylesheet' type='text/css' href='css/standard.css'/>
 
   </head>
   <body>

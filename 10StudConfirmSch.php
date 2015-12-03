@@ -7,7 +7,7 @@ $_SESSION["appTime"] = $_POST["appTime"]; // radio button selection from previou
   <head>
     <meta charset="UTF-8" />
     <title>Confirm Appointment</title>
-	<link rel='stylesheet' type='text/css' href='../css/standard.css'/>  </head>
+	<link rel='stylesheet' type='text/css' href='css/standard.css'/>  </head>
   <body>
 	<div id="login">
       <div id="form">
@@ -38,13 +38,17 @@ $_SESSION["appTime"] = $_POST["appTime"]; // radio button selection from previou
 					$rs2 = $COMMON->executeQuery($sql2, $_SERVER["SCRIPT_NAME"]);
 					$row2 = mysql_fetch_row($rs2);
 					$oldAdvisorName = $row2[1] . " " . $row2[2];
+					$location = $row2[5];
+					$room = $row2[6];
 				}
 				else{$oldAdvisorName = "Group";}
 				
 				echo "<h2>Previous Appointment</h2>";
 				echo "<label for='info'>";
 				echo "Advisor: ", $oldAdvisorName, "<br>";
-				echo "Appointment: ", date('l, F d, Y g:i A', $oldDatephp), "</label><br>";
+				echo "Appointment: ", date('l, F d, Y g:i A', $oldDatephp), "<br>";
+				echo "Location: ", $location, "<br>";
+				echo "Room: ", $room, "</label><br>";
 			}
 			
 			$currentAdvisorName;

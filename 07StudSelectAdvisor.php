@@ -9,7 +9,7 @@ $COMMON = new Common($debug);
   <head>
     <meta charset="UTF-8" />
     <title>Select Advisor</title>
-	<link rel='stylesheet' type='text/css' href='../css/standard.css'/>
+	<link rel='stylesheet' type='text/css' href='css/standard.css'/>
   </head>
   <body>
     <div id="login">

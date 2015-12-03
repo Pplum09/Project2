@@ -1,7 +1,7 @@
 <?php
 session_start();
 $debug = false;
-include('../CommonMethods.php');
+include('CommonMethods.php');
 $COMMON = new Common($debug);
 
 if($_POST["finish"] == 'Cancel'){
@@ -15,7 +15,7 @@ else{
 	$email = $_SESSION["email"];
 	$advisor = $_SESSION["advisor"];
 
-	if(debug) { echo("Advisor -> $advisor<br>\n"); }
+
 
 	$apptime = $_SESSION["appTime"];
 	if($_SESSION["studExist"] == false){
