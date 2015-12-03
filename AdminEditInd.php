@@ -10,7 +10,6 @@ session_start();
 	alert("Value: " + stepVal);
     }
     </script>
-	<link rel='stylesheet' type='text/css' href='css/standard.css'/>
   </head> 
   <body>
     <div id="login">

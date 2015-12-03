@@ -11,7 +11,6 @@ $_SESSION["PassCon"] = false;
 
 <?php include('header.php'); ?>
     <title>Admin Home</title>
-	<link rel='stylesheet' type='text/css' href='css/standard.css'/>
   </head>
   <body>
     <div id="login">

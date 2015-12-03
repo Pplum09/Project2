@@ -3,7 +3,6 @@ session_start();
 ?>
 
 <?php include('header.php'); ?>
-	<link rel='stylesheet' type='text/css' href='css/standard.css'/>
   </head>
   <body>
     <div id="login">

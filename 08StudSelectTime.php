@@ -18,12 +18,8 @@ $row = mysql_fetch_row($rs);
 $advisorName = $row[1]." ".$row[2];
 ?>
 
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
+<?php include('header.php'); ?>
     <title>Select Appointment</title>
-	<link rel='stylesheet' type='text/css' href='css/standard.css'/>
-
   </head>
   <body>
     <div id="login">

@@ -6,7 +6,6 @@ $COMMON = new Common($debug);
 ?>
 
 <?php include('header.php'); ?>
-	<link rel='stylesheet' type='text/css' href='css/standard.css'/>
   </head>
   <body>
     <div id="login">

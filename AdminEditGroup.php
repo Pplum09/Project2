@@ -11,7 +11,6 @@ $_SESSION["Delete"] = false;
   alert("Value: " + stepVal);
     }
     </script>
-	<link rel='stylesheet' type='text/css' href='css/standard.css'/>
   </head> 
   <body>
     <div id="login">

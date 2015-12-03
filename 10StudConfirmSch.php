@@ -3,11 +3,8 @@ session_start();
 $_SESSION["appTime"] = $_POST["appTime"]; // radio button selection from previous form
 ?>
 
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
+<?php include('header.php'); ?>
     <title>Confirm Appointment</title>
-	<link rel='stylesheet' type='text/css' href='css/standard.css'/>  </head>
   <body>
 	<div id="login">
       <div id="form">

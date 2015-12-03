@@ -5,11 +5,8 @@ include('CommonMethods.php');
 $COMMON = new Common($debug);
 ?>
 
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
+<?php include('header.php'); ?>
     <title>Select Advisor</title>
-	<link rel='stylesheet' type='text/css' href='css/standard.css'/>
   </head>
   <body>
     <div id="login">

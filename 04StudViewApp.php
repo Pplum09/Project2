@@ -7,11 +7,8 @@ $COMMON = new Common($debug);
 $studID = $_SESSION["studID"];
 ?>
 
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
+<?php include('header.php'); ?>
     <title>View Appointment</title>
-	<link rel='stylesheet' type='text/css' href='css/standard.css'/>
   </head>
   <body>
     <div id="login">

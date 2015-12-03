@@ -3,7 +3,6 @@ session_start();
 ?>
 
 <?php include('header.php'); ?>
-    <meta charset="UTF-8" />
     <title>Edit Group Appointment</title>
     <script type="text/javascript">
     function saveValue(target){
@@ -11,7 +10,6 @@ session_start();
       alert("Value: " + stepVal);
     }
     </script>
-	<link rel='stylesheet' type='text/css' href='css/standard.css'/>
   </head> 
   <body>
     <div id="login">
