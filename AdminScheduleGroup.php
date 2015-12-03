@@ -53,6 +53,7 @@ session_start();
           <input type="checkbox" name="major[]" value="Computer Science" checked>Computer Science
           <input type="checkbox" name="major[]" value="Mechanical Engineering" checked>Mechanical Engineering
           <input type="checkbox" name="major[]" value="Chemical Engineering" checked>Chemical Engineering
+          <input type="checkbox" name="major[]" value="Engineering" checked> Engineering      
       </div>
 
         <div class="field">

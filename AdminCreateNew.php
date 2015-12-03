@@ -22,6 +22,8 @@
 			$last = $_SESSION["AdvL"];
 			$user = $_SESSION["AdvUN"];
 			$pass = $_SESSION["AdvPW"];
+                        $loc = $_SESSION["AdvLoc"];
+                        $room = intval($_SESSION["AdvRoom"]);
 
 			include('CommonMethods.php');
 			$debug = false;
@@ -34,8 +36,8 @@
         echo("<h3>Advisor $first $last already exists</h3>");
       }
       else{
-  			$sql = "INSERT INTO `Proj2Advisors`(`FirstName`, `LastName`, `Username`, `Password`) 
-  			VALUES ('$first', '$last', '$user', '$pass')";
+	  $sql = "INSERT INTO `Proj2Advisors`(`FirstName`, `LastName`, `Username`, `Password`, `Location`, `Room`) 
+                  VALUES ('$first', '$last', '$user', '$pass', '$loc', $room)";
         echo ("<h3>$first $last<h3>");
         $rs = $Common->executeQuery($sql, "Advising Appointments");
       }
