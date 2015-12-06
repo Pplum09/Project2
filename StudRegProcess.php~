@@ -1,0 +1,36 @@
+<?php
+session_start();
+
+// registration validation added
+$debug = false;
+include('../CommonMethods.php');
+$COMMON = new Common($debug);
+
+// get names from post data
+$studentID = $_POST["studID"];
+
+// build query string
+$sql = "select `StudentID` from Proj2Students where `StudentID` = '$studentID'";
+
+// execute query
+$rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
+$row = mysql_fetch_row($rs);
+
+// if true, then user does not exist, thus add user info
+if ($row[0] == "") {
+     $_SESSION["regPass"] = TRUE;
+    
+    // create query string
+    $sql = "INSERT INTO `Proj2Students`(`FirstName`, `LastName`, `StudentID`, `Email`, `Major`, `Status`) VALUES ('ISARA','RITTHAWORN', 'LP37810', 'ir3@umbc.edu','Computer Science','N')";
+    $rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
+   
+    echo "FUCK";
+}
+// registration fail, ID already exists
+else {
+    echo "USER ALREADY EXISTS";
+    $_SESSION["regPass"] = FALSE; 
+}
+
+ header("01StudSignIn.php"); 
+?>
