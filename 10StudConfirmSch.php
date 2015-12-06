@@ -3,11 +3,8 @@ session_start();
 $_SESSION["appTime"] = $_POST["appTime"]; // radio button selection from previous form
 ?>
 
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
+<?php include('header.php'); ?>
     <title>Confirm Appointment</title>
-	<link rel='stylesheet' type='text/css' href='css/standard.css'/>  </head>
   <body>
 	<div id="login">
       <div id="form">
@@ -17,14 +14,14 @@ $_SESSION["appTime"] = $_POST["appTime"]; // radio button selection from previou
 		<form action = "StudProcessSch.php" method = "post" name = "SelectTime">
 	    <?php
 			$debug = false;
-			include('GetStudentData.php');
+			include('CommonMethods.php');
 			$COMMON = new Common($debug);
 			
-			$firstn = getFirstName();
-			$lastn = getLastName();
+			$firstn = $_SESSION["firstN"];
+			$lastn = $_SESSION["lastN"];
 			$studid = $_SESSION["studID"];
-			$major = getMajor();
-			$email = getEmail();
+			$major = $_SESSION["major"];
+			$email = $_SESSION["email"];
 			
 			if($_SESSION["resch"] == true){
 				$sql = "select * from Proj2Appointments where `EnrolledID` like '%$studid%'";
@@ -38,17 +35,21 @@ $_SESSION["appTime"] = $_POST["appTime"]; // radio button selection from previou
 					$rs2 = $COMMON->executeQuery($sql2, $_SERVER["SCRIPT_NAME"]);
 					$row2 = mysql_fetch_row($rs2);
 					$oldAdvisorName = $row2[1] . " " . $row2[2];
+					$location = $row2[5];
+					$room = $row2[6];
 				}
 				else{$oldAdvisorName = "Group";}
 				
 				echo "<h2>Previous Appointment</h2>";
 				echo "<label for='info'>";
 				echo "Advisor: ", $oldAdvisorName, "<br>";
-				echo "Appointment: ", date('l, F d, Y g:i A', $oldDatephp), "</label><br>";
+				echo "Appointment: ", date('l, F d, Y g:i A', $oldDatephp), "<br>";
+				echo "Location: ", $location, "<br>";
+				echo "Room: ", $room, "</label><br>";
 			}
 			
 			$currentAdvisorName;
-			$currentAdvisorID = getAdvisor();
+			$currentAdvisorID = $_SESSION["advisor"];
 			$currentDatephp = strtotime($_SESSION["appTime"]);
 			if($currentAdvisorID != 0){
 				$sql2 = "select * from Proj2Advisors where `id` = '$currentAdvisorID'";
@@ -73,9 +74,8 @@ $_SESSION["appTime"] = $_POST["appTime"]; // radio button selection from previou
 				echo "<input type='submit' name='finish' class='button large go' value='Submit'>";
 			}
 		?>
-			<input type="submit" name="finish" class="button large" value="Cancel">
+			<input style="margin-left: 50px" type="submit" name="finish" class="button large" value="Cancel">
 	    </div>
 		</form>
 		</div>
-  </body>
-</html>
+                            <?php include('footer.php'); ?>

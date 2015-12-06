@@ -2,10 +2,7 @@
 session_start();
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-	<link rel='stylesheet' type='text/css' href='css/standard.css'/>
+<?php include('header.php'); ?>
   </head>
   <body>
     <div id="login">
@@ -56,6 +53,7 @@ session_start();
           <input type="checkbox" name="major[]" value="Computer Science" checked>Computer Science
           <input type="checkbox" name="major[]" value="Mechanical Engineering" checked>Mechanical Engineering
           <input type="checkbox" name="major[]" value="Chemical Engineering" checked>Chemical Engineering
+          <input type="checkbox" name="major[]" value="Engineering" checked> Engineering      
       </div>
 
         <div class="field">
@@ -86,9 +84,4 @@ session_start();
 		<form method="link" action="AdminUI.php" name="home">
 			<input type="submit" name="next" class="button large" value="Cancel">
 		</form>
-	<?php include('./workOrder/workButton.php'); ?>
-
-
-  </body>
-  
-</html>
+<?php include('footer.php'); ?>

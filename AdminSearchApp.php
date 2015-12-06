@@ -5,10 +5,7 @@ include('CommonMethods.php');
 $COMMON = new Common($debug); 
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
+<?php include('header.php'); ?>
     <title>Search Appointments</title>
     <script type="text/javascript">
     function saveValue(target){
@@ -16,7 +13,6 @@ $COMMON = new Common($debug);
 	alert("Value: " + stepVal);
     }
     </script>
-    <link rel="stylesheet" type="text/css" href="css/standard.css">
   </head>
   <body>
     <div id="login">
@@ -30,7 +26,7 @@ $COMMON = new Common($debug);
 	    </div>
 
 	    <div class="field">
-	      <label for="time">Time</label><span style="font-size: 20px; font-family: Arial, Helvetica, sans-serif;">
+	      <label for="time">Time</label><span style="font-size: 14px; font-family: Arial, Helvetica, sans-serif;">
 		<input type="checkbox" name="time[]" value="8:00:00"> 8:00am - 8:30am<br>
 		<input type="checkbox" name="time[]" value="8:30:00"> 8:30am - 9:00am<br>
 		<input type="checkbox" name="time[]" value="9:00:00"> 9:00am - 9:30am<br>
@@ -92,12 +88,7 @@ $COMMON = new Common($debug);
 	<br>
 	<br>
 	<form method="link" action="AdminUI.php">
-	<div class="nextButton">
 	<input type="submit" name="next" class="button large go" value="Return to Home">
-	</div>
 	</form>
-	<?php include('./workOrder/workButton.php'); ?>
+<?php include('footer.php'); ?>
 
-  </body>
-  
-</html>

@@ -5,11 +5,8 @@ include('CommonMethods.php');
 $COMMON = new Common($debug);
 ?>
 
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
+<?php include('header.php'); ?>
     <title>Select Advisor</title>
-	<link rel='stylesheet' type='text/css' href='css/standard.css'/>
   </head>
   <body>
     <div id="login">
@@ -33,11 +30,8 @@ $COMMON = new Common($debug);
 		</div>
 		</form>
 		<div>
-		<div class="nextButton">
 		<form method="link" action="02StudHome.php">
 		<input type="submit" name="home" class="button large" value="Cancel">
 		</form>
 		</div>
-		</div>
-  </body>
-</html>
+                            <?php include('footer.php'); ?>

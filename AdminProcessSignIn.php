@@ -16,22 +16,16 @@ then edit .htaccess file here in the same directory
 
 session_start();
 
-include('GetAdvisorData.php');
+include('CommonMethods.php');
 $debug = false;
 $Common = new Common($debug);
 
-// Added to get admin ID from the input username
+$_SESSION["UserN"] = strtoupper($_POST["UserN"]);
+$_SESSION["PassW"] = strtoupper($_POST["PassW"]);
+$_SESSION["UserVal"] = false;
 
-$tempN = $_POST["UserN"];
-$tempP = $_POST["PassW"];
-$sql = "SELECT * FROM `Proj2Advisors` WHERE `Username` = '$tempN' AND `Password` = '$tempP'";
-$rs = $Common->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
-$row = mysql_fetch_row($rs);
-
-$_SESSION["userID"] = $row[0];		// Addition to provide a single session variable in place of all others
-
-$user = getUsername();
-$pass = getPassword();
+$user = $_SESSION["UserN"];
+$pass = $_SESSION["PassW"];
 
 $sql = "SELECT * FROM `Proj2Advisors` WHERE `Username` = '$user' AND `Password` = '$pass'";
 $rs = $Common->executeQuery($sql, "Advising Appointments");
@@ -42,6 +36,7 @@ if($row){
 	else { header('Location: AdminUI.php'); }
 }
 else{
+	$_SESSION["UserVal"] = true;
 	header('Location: AdminSignIn.php'); 
 }
 

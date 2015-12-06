@@ -1,2 +1,3 @@
-# COE-Advising---Project-2
-Project 2
+Isara Ritthaworn
+Nick Eagles
+Matt Jackson

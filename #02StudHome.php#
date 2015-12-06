@@ -2,8 +2,11 @@
 session_start();
 ?>
 
-<?php include('header.php'); ?>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
     <title>Student Advising Home</title>
+	<link rel='stylesheet' type='text/css' href='../css/standard.css'/>
   </head>
   <body>
     <div id="login">
@@ -18,7 +21,7 @@ session_start();
 		<form action="StudProcessHome.php" method="post" name="Home">
 	    <?php
 			$debug = false;
-			include('CommonMethods.php');
+			include('../../CommonMethods.php');
 			$COMMON = new Common($debug);
 			
 			$_SESSION["studExist"] = false;

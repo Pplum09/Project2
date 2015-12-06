@@ -30,7 +30,7 @@ $debug = false;
             echo("<h1>Removed Appointment</h1><br>");
 
             $sql = "SELECT `EnrolledID` FROM `Proj2Appointments` WHERE `Time` = '$row[0]'
-              AND `AdvisorID` = '0' 
+               AND `AdvisorID` = '0' 
               AND `Major` = '$row[1]' 
               AND `EnrolledNum` = '$row[2]'
               AND `Max` = '$row[3]'";

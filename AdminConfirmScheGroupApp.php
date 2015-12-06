@@ -1,14 +1,11 @@
 <?php
 session_start();
 $debug = false;
-include('GetAdvisorData.php');
+include('CommonMethods.php');
 $COMMON = new Common($debug);
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-	<link rel='stylesheet' type='text/css' href='css/standard.css'/>
+<?php include('header.php'); ?>
   </head>
   <body>
     <div id="login">
@@ -67,22 +64,32 @@ $COMMON = new Common($debug);
               array_push($datetimes, $newDatetime);
             }
           }
-          
+
           //major stuff
           $majorDB = "";
           $majorPrint = "All";
           if(!empty($majors)){
-            $majorPrint = "";
-            foreach($majors as $m){
-              $majorDB .= $m . " ";
-              $majorPrint .= $m . ", ";
-            }
-            $majorPrint = substr($majorPrint, 0, -2);
-          }
+	      $majorPrint = "";
+	      foreach($majors as $m)
+	      {
+		  if($m == "Engineering")
+		  { $majorDB .= "ENGR" . " "; }
+		  if($m == "Mechanical Engineering")
+		  { $majorDB .= "MENG" . " "; }
+		  if($m == "Chemical Engineering")
+		  { $majorDB .= "CENG" . " "; }
+		  if($m == "Computer Science")
+		  { $majorDB .= "CMSC" . " "; }
+		  if($m == "Computer Engineering")
+		  { $majorDB .= "CMPE" . " "; }
+		  $majorPrint .= $m . ", ";
+	      }
+	      $majorPrint = substr($majorPrint, 0, -2);
+	  }
           
           //get advisor id
-          $User = getUsername();
-          $Pass = getPassword();
+          $User = $_SESSION["UserN"];
+          $Pass = $_SESSION["PassW"];
           $sql = "select `id` from `Proj2Advisors` where `Username` = '$User' and `Password` = '$Pass'";
           $rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
           $row = mysql_fetch_row($rs);
@@ -117,6 +124,5 @@ $COMMON = new Common($debug);
       </div>
 	</div>
 	</form>
-  </body>
-  
-</html>
+
+<?php include('footer.php'); ?>

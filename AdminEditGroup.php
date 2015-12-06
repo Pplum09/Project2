@@ -1,11 +1,9 @@
 <?php
 session_start();
+$_SESSION["Delete"] = false;
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
+<?php include('header.php'); ?>
     <title>Edit Group Appointment</title>
     <script type="text/javascript">
     function saveValue(target){
@@ -13,7 +11,6 @@ session_start();
   alert("Value: " + stepVal);
     }
     </script>
-	<link rel='stylesheet' type='text/css' href='css/standard.css'/>
   </head> 
   <body>
     <div id="login">
@@ -36,8 +33,6 @@ session_start();
 	echo("<table border='1px'>\n<tr>");
 	echo("<tr><td width='320px'>Time</td><td>Majors</td><td>Seats Enrolled</td><td>Total Seats</td></tr>\n");
 
-		// Display first appointment info for possible selection
-
               echo("<td><label for='$row[0]'><input type=\"radio\" id='$row[0]' name=\"GroupApp\" 
                 required value=\"row[]=$row[1]&row[]=$row[3]&row[]=$row[5]&row[]=$row[6]\">");
               echo(date('l, F d, Y g:i A', strtotime($row[1])). "</label></td>");
@@ -51,7 +46,7 @@ session_start();
               echo("<td>$row[5]</td><td>$row[6]");
 			  echo("</label>");
 			
-			//rest of row (other appointments)
+			//rest of row
               echo("</td></tr>\n");
               while ($row = mysql_fetch_array($rs, MYSQL_NUM)) {
                 echo("<tr><td><label for='$row[0]'><input type=\"radio\" id='$row[0]' name=\"GroupApp\" 
@@ -92,8 +87,6 @@ session_start();
   </div>
   </div>
   </div>
-	<?php include('./workOrder/workButton.php'); ?>
   </div>
-  </body>
-  
-</html>
+<?php include('footer.php'); ?>
+

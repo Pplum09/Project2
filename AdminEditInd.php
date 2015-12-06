@@ -2,10 +2,7 @@
 session_start();
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
+<?php include('header.php'); ?>
     <title>Edit Individual Appointment</title>
     <script type="text/javascript">
     function saveValue(target){
@@ -13,7 +10,6 @@ session_start();
 	alert("Value: " + stepVal);
     }
     </script>
-	<link rel='stylesheet' type='text/css' href='css/standard.css'/>
   </head> 
   <body>
     <div id="login">
@@ -117,9 +113,7 @@ session_start();
               echo("<br><br>");
 			  echo("</td</tr>");
               echo("<form method=\"link\" action=\"AdminUI.php\">");
-		echo("<div class=\"nextButton\">");
               echo("<input type=\"submit\" name=\"next\" class=\"button large go\" value=\"Return to Home\">");
-		echo("</div>");
               echo("</form>");
             }
           ?>
@@ -130,9 +124,7 @@ session_start();
 		<p style='color:red'>Please note that individual appointments can only be removed from schedule.</p>
 	</div>
 	</div>
-	<?php include('./workOrder/workButton.php'); ?>
 
 	</div>
-  </body>
-  
-</html>
+<?php include('footer.php'); ?>
+

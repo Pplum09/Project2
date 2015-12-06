@@ -1,15 +1,12 @@
 <?php
 session_start();
 $debug = false;
-include('GetStudentData.php');
+include('CommonMethods.php');
 $COMMON = new Common($debug);
 ?>
 
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
+<?php include('header.php'); ?>
     <title>Cancel Appointment</title>
-    <link rel="stylesheet" type="text/css" href="css/standard.css">
   </head>
   <body>
     <div id="login">
@@ -18,11 +15,11 @@ $COMMON = new Common($debug);
 		<h1>Cancel Appointment</h1>
 	    <div class="field">
 	    <?php
-			$firstn = getFirstName();
-			$lastn = getLastName();
+			$firstn = $_SESSION["firstN"];
+			$lastn = $_SESSION["lastN"];
 			$studid = $_SESSION["studID"];
-			$major = getMajor();
-			$email = getEmail();
+			$major = $_SESSION["major"];
+			$email = $_SESSION["email"];
 			
 			$sql = "select * from Proj2Appointments where `EnrolledID` like '%$studid%'";
 			$rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
@@ -55,5 +52,4 @@ $COMMON = new Common($debug);
 			<p>Click "Cancel" to cancel appointment. Click "Keep" to keep appointment.</p>
 		</div>
 		</form>
-  </body>
-</html>
+	      <?php include('footer.php'); ?>

@@ -1,9 +1,12 @@
-<?php
+e<?php
 session_start();
 ?>
 
-<?php include('header.php'); ?>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
     <title>Select Advising Type</title>
+	<link rel='stylesheet' type='text/css' href='../css/standard.css'/>
   </head>
   <body>
     <div id="login">
@@ -27,4 +30,5 @@ session_start();
 		<input type="submit" name="home" class="button large" value="Cancel">
 		</form>
 		</div>
-      <?php include('footer.php'); ?>
+  </body>
+</html>

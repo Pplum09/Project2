@@ -7,11 +7,8 @@ $COMMON = new Common($debug);
 $studID = $_SESSION["studID"];
 ?>
 
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
+<?php include('header.php'); ?>
     <title>View Appointment</title>
-	<link rel='stylesheet' type='text/css' href='css/standard.css'/>
   </head>
   <body>
     <div id="login">
@@ -36,12 +33,16 @@ $studID = $_SESSION["studID"];
 					$rs2 = $COMMON->executeQuery($sql2, $_SERVER["SCRIPT_NAME"]);
 					$row2 = mysql_fetch_row($rs2);
 					$advisorName = $row2[1] . " " . $row2[2];
+					$location = $row2[5];
+					$room = $row2[6];
 				}
 				else{$advisorName = "Group";}
 			
 				echo "<label for='info'>";
 				echo "Advisor: ", $advisorName, "<br>";
-				echo "Appointment: ", date('l, F d, Y g:i A', $datephp), "</label>";
+				echo "Appointment: ", date('l, F d, Y g:i A', $datephp), "<br>";
+				echo "Location: ", $location, "<br>";
+				echo "Room: ", $room, "</label>";
 			}
 			else // something is up, and there DB table needs to be fixed
 			{
@@ -53,10 +54,9 @@ $studID = $_SESSION["studID"];
 
 		?>
         </div>
-	    <div class="returnButton">
+	    <div class="finishButton">
 			<button onclick="location.href = '02StudHome.php'" class="button large go" >Return to Home</button>
 	    </div>
 		</div>
 		</form>
-  </body>
-</html>
+                            <?php include('footer.php'); ?>

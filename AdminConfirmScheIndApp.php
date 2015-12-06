@@ -1,20 +1,16 @@
 <?php
 session_start();
 $debug = false;
-include('GetAdvisorData.php');
+include('CommonMethods.php');
 $COMMON = new Common($debug);
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-	<link rel='stylesheet' type='text/css' href='css/standard.css'/>
+<?php include('header.php'); ?>
   </head>
   <body>
     <div id="login">
       <div id="form">
         <div class="top">
-	<div class="field">
 		<h2>Appointments Created</h2><br>
 		<?php
 			$date = $_POST["Date"];
@@ -67,22 +63,32 @@ $COMMON = new Common($debug);
 					array_push($datetimes, $newDatetime);
 				}
 			}
-			
-			//major stuff
-			$majorDB = "";
-			$majorPrint = "All";
-			if(!empty($majors)){
-				$majorPrint = "";
-				foreach($majors as $m){
-					$majorDB .= $m . " ";
-					$majorPrint .= $m . ", ";
-				}
-				$majorPrint = substr($majorPrint, 0, -2);
+
+                        //major stuff
+                        $majorDB = "";
+                        $majorPrint = "All";
+                        if(!empty($majors)){
+			    $majorPrint = "";
+			    foreach($majors as $m)
+			    {
+				if($m == "Engineering")
+				{ $majorDB .= "ENGR" . " "; }
+				if($m == "Mechanical Engineering")
+				{ $majorDB .= "MENG" . " "; }
+				if($m == "Chemical Engineering")
+				{ $majorDB .= "CENG" . " "; }
+				if($m == "Computer Science")
+				{ $majorDB .= "CMSC" . " "; }
+				if($m == "Computer Engineering")
+				{ $majorDB .= "CMPE" . " "; }
+				$majorPrint .= $m . ", ";
+			    }
+			    $majorPrint = substr($majorPrint, 0, -2);
 			}
 			
 			//get advisor id
-			$User = getUsername();
-			$Pass = getPassword();
+			$User = $_SESSION["UserN"];
+			$Pass = $_SESSION["PassW"];
 			$sql = "select `id` from `Proj2Advisors` where `Username` = '$User' and `Password` = '$Pass'";
 			$rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
 			$row = mysql_fetch_row($rs);
@@ -108,11 +114,8 @@ $COMMON = new Common($debug);
 		?>
 		<br>
 		<form method="link" action="AdminUI.php">
-			<div class="nextButton">
 			<input type="submit" name="next" class="button large go" value="Return to Home">
-			</div>
 		</form>
-	</div>
 	</div>
 	<div class="bottom">
 		<p><span style="color:red">!!</span> indicates that this appointment already exists. A repeat appointment was not made.</p>
@@ -120,6 +123,4 @@ $COMMON = new Common($debug);
 	</div>
 	</div>
 	</form>
-  </body>
-  
-</html>
+<?php include('footer.php'); ?>

@@ -2,12 +2,8 @@
 session_start();
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
+<?php include('header.php'); ?>
     <title>Edit Appointment</title>
-    <link rel="stylesheet" type="text/css" href="css/standard.css">
   </head>
   <body>
     <div id="login">
@@ -27,14 +23,10 @@ session_start();
 	<br>
 	<br>
 	<form method="link" action="AdminUI.php">
-	<div class="nextButton">
 	<input type="submit" name="next" class="button large go" value="Return to Home">
-	</div>
 	</form>
          
         </div>
 	</div>
+<?php include('footer.php'); ?>
 		
-  </body>
-  
-</html>

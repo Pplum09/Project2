@@ -2,10 +2,7 @@
 session_start();
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
+<?php include('header.php'); ?>
     <title>Schedule Individual Appointment</title>
     <script type="text/javascript">
     function saveValue(target){
@@ -13,7 +10,6 @@ session_start();
 	alert("Value: " + stepVal);
     }
     </script>
-	<link rel='stylesheet' type='text/css' href='css/standard.css'/>
   </head>
   <body>
     <div id="login">
@@ -21,6 +17,7 @@ session_start();
         <div class="top">
 		    <h1>Schedule Individual Appointments</h1>
         <form action="AdminConfirmScheIndApp.php" method="post" name="Confirm">
+	    <div class="field">
 	      <label for="Date">Date</label>
 
 		<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
@@ -61,6 +58,7 @@ session_start();
           <input type="checkbox" name="major[]" value="Computer Science" checked>Computer Science
           <input type="checkbox" name="major[]" value="Mechanical Engineering" checked>Mechanical Engineering
           <input type="checkbox" name="major[]" value="Chemical Engineering" checked>Chemical Engineering
+          <input type="checkbox" name="major[]" value="Engineering" checked>Engineering
       </div>
 
         <div class="field">
@@ -80,14 +78,9 @@ session_start();
 	    <div class="nextButton">
 			<input type="submit" name="next" class="button large go" value="Create">
 	</div>
+	</div>
 	</form>
 	<form method="link" action="AdminUI.php" name="home">
-		<div class="nextButton">
 		<input type="submit" name="next" class="button large go" value="Return to Home">
-		</div>
 	</form>
-	<?php include('./workOrder/workButton.php'); ?>
-
-  </body>
-  
-</html>
+    <?php include('footer.php'); ?>

@@ -1,22 +1,36 @@
 <?php
+  //Start the session.
 session_start();
-$debug = false;
-include('CommonMethods.php');
-$COMMON = new Common($debug);
 
-// Replaced assignment to session variables with temporary variables- used in upcoming sql query to add to Proj2Students table
+//Set the session variables (Student sign-in form).
+$_SESSION["firstN"] = strtoupper($_POST["firstN"]);
+$_SESSION["lastN"] = strtoupper($_POST["lastN"]);
+$_SESSION["studID"] = strtoupper($_POST["studID"]);
+$_SESSION["email"] = $_POST["email"];
 
-$firstN = strtoupper($_POST["firstN"]);
-$lastN = strtoupper($_POST["lastN"]);
-$_SESSION["studID"] = strtoupper($_POST["studID"]);		// Only one session variable necessary to access all student information
-$studID = $_SESSION["studID"];
-$email = $_POST["email"];
-$major = $_POST["major"];
+if($_POST["major"] == "Chemical Engineering")
+{
+    $_POST["major"] = "CENG";
+}
+else if($_POST["major"] == "Computer Engineering")
+{
+    $_POST["major"] = "CMPE";
+}
+else if($_POST["major"] == "Computer Science")
+{
+    $_POST["major"] = "CMSC";
+}
+else if($_POST["major"] == "Engineering Undecided")
+{
+    $_POST["major"] = "ENGR";
+}
+else if($_POST["major"] == "Mechanical Engineering")
+{
+    $_POST["major"] = "MENG";
+}
 
-// My addition to actually put a student who logs in into the database- necessary to avoid use of extra session variables
+$_SESSION["major"] = $_POST["major"];
 
-$sql = "insert into `Proj2Students`(`FirstName`, `LastName`, `StudentID`, `Email`, `Major`) values ('$firstN','$lastN','$studID','$email','$major')";
-$rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
-
+//Redirects current page to 02StudHome.php
 header('Location: 02StudHome.php');
 ?>

@@ -1,13 +1,9 @@
 <?php
 session_start();
-include('GetStudentData.php');
 ?>
 
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
+<?php include('header.php'); ?>
     <title>Exit Message</title>
-    <link rel="stylesheet" type="text/css" href="css/standard.css">
   </head>
   <body>
     <div id="login">
@@ -16,19 +12,19 @@ include('GetStudentData.php');
 	    <div class="statusMessage">
 	    <?php
 			$_SESSION["resch"] = false;			
-			if(getStatus() == "complete"){
+			if($_SESSION["status"] == "complete"){
 				echo "You have completed your sign-up for an advising appointment.";
 			}
-			elseif(getStatus() == "none"){
+			elseif($_SESSION["status"] == "none"){
 				echo "You did not sign up for an advising appointment.";
 			}
-			if(getStatus() == "cancel"){
+			if($_SESSION["status"] == "cancel"){
 				echo "You have cancelled your advising appointment.";
 			}
-			if(getStatus() == "resch"){
+			if($_SESSION["status"] == "resch"){
 				echo "You have changed your advising appointment.";
 			}
-			if(getStatus() == "keep"){
+			if($_SESSION["status"] == "keep"){
 				echo "No changes have been made to your advising appointment.";
 			}
 		?>
@@ -39,5 +35,4 @@ include('GetStudentData.php');
 	    </div>
 		</div>
 		</form>
-  </body>
-</html>
+	      <?php include('footer.php'); ?>

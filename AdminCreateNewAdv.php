@@ -1,14 +1,9 @@
 <?php
 session_start();
-include('GetAdvisorData.php');
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
+<?php include('header.php'); ?>
     <title>Create New Admin</title>
-	<link rel='stylesheet' type='text/css' href='css/standard.css'/>
 
      <script type="text/javascript">
     //   window.onload = function () {
@@ -32,15 +27,8 @@ include('GetAdvisorData.php');
         <div class="top">
 		<h2>Create New Advisor Account</h2>
 		<?php
-      if(getConfirmPassword() == "false"){
+      if($_SESSION["PassCon"] == true){
         echo "<h3 style='color:red'>Passwords do not match!!</h3>";
-
-	// New advisor data should not be in the table if password and confirm password fields don't match
-	$debug = false;
-	$COMMON = new Common($debug);
-
-	$sql = "DELETE FROM `Proj2Advisors` WHERE `New` = 'true'";
-	$rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
       }
     ?>
 		<form action="AdminProcessCreateNew.php" method="post" name="Create">
@@ -68,6 +56,17 @@ include('GetAdvisorData.php');
 	     		<label for="ConfP">Confirm Password</label>
 	      		<input id="ConfP" size="20" maxlength="50" type="password" name="ConfP" required>
 	   	</div>	
+
+                <div class="field">
+                        <label for="Loc">Location</label>
+                        <input id="Loc" size="20" maxlength="50" type="text" name="Loc" required>
+                </div>
+
+                <div class="field">
+                        <label for="Room">Room Number</label>
+                        <input id="Room" size="20" maxlength="3" type="text" name="Room" required>
+                </div>
+
 		<br>
 
 		<div class="nextButton">
@@ -81,5 +80,4 @@ include('GetAdvisorData.php');
 	</div>
 	</div>
 	</div>
-  </body>
-</html>
+<?php include('footer.php'); ?>
