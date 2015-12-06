@@ -1,7 +1,7 @@
 <?php
 session_start();
 $debug = false;
-include('CommonMethods.php');
+include('../CommonMethods.php');
 $COMMON = new Common($debug);
 
 $studID = $_SESSION["studID"];
@@ -11,7 +11,7 @@ $studID = $_SESSION["studID"];
   <head>
     <meta charset="UTF-8" />
     <title>View Appointment</title>
-	<link rel='stylesheet' type='text/css' href='css/standard.css'/>
+	<link rel='stylesheet' type='text/css' href='../css/standard.css'/>
   </head>
   <body>
     <div id="login">
@@ -53,7 +53,7 @@ $studID = $_SESSION["studID"];
 
 		?>
         </div>
-	    <div class="returnButton">
+	    <div class="finishButton">
 			<button onclick="location.href = '02StudHome.php'" class="button large go" >Return to Home</button>
 	    </div>
 		</div>

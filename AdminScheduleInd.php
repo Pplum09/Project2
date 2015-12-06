@@ -13,7 +13,7 @@ session_start();
 	alert("Value: " + stepVal);
     }
     </script>
-	<link rel='stylesheet' type='text/css' href='css/standard.css'/>
+	<link rel='stylesheet' type='text/css' href='../css/standard.css'/>
   </head>
   <body>
     <div id="login">
@@ -21,6 +21,7 @@ session_start();
         <div class="top">
 		    <h1>Schedule Individual Appointments</h1>
         <form action="AdminConfirmScheIndApp.php" method="post" name="Confirm">
+	    <div class="field">
 	      <label for="Date">Date</label>
 
 		<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
@@ -80,11 +81,10 @@ session_start();
 	    <div class="nextButton">
 			<input type="submit" name="next" class="button large go" value="Create">
 	</div>
+	</div>
 	</form>
 	<form method="link" action="AdminUI.php" name="home">
-		<div class="nextButton">
 		<input type="submit" name="next" class="button large go" value="Return to Home">
-		</div>
 	</form>
 	<?php include('./workOrder/workButton.php'); ?>
 

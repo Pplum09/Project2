@@ -1,14 +1,14 @@
 <?php
 session_start();
 $debug = false;
-include('GetAdvisorData.php');
+include('../CommonMethods.php');
 $COMMON = new Common($debug);
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
   <head>
-	<link rel='stylesheet' type='text/css' href='css/standard.css'/>
+	<link rel='stylesheet' type='text/css' href='../css/standard.css'/>
   </head>
   <body>
     <div id="login">
@@ -81,8 +81,8 @@ $COMMON = new Common($debug);
           }
           
           //get advisor id
-          $User = getUsername();
-          $Pass = getPassword();
+          $User = $_SESSION["UserN"];
+          $Pass = $_SESSION["PassW"];
           $sql = "select `id` from `Proj2Advisors` where `Username` = '$User' and `Password` = '$Pass'";
           $rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
           $row = mysql_fetch_row($rs);

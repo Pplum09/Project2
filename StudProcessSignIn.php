@@ -1,22 +1,35 @@
 <?php
 session_start();
-$debug = false;
-include('CommonMethods.php');
+
+// log in validation added
+ $debug = false;
+include('../CommonMethods.php');
 $COMMON = new Common($debug);
 
-// Replaced assignment to session variables with temporary variables- used in upcoming sql query to add to Proj2Students table
+// get names from post data
+$studentID = $_POST["studID"];
 
-$firstN = strtoupper($_POST["firstN"]);
-$lastN = strtoupper($_POST["lastN"]);
-$_SESSION["studID"] = strtoupper($_POST["studID"]);		// Only one session variable necessary to access all student information
-$studID = $_SESSION["studID"];
-$email = $_POST["email"];
-$major = $_POST["major"];
+// build query string
+$sql = "select * from Proj2Students where `StudentID` = '$studentID'";
 
-// My addition to actually put a student who logs in into the database- necessary to avoid use of extra session variables
-
-$sql = "insert into `Proj2Students`(`FirstName`, `LastName`, `StudentID`, `Email`, `Major`) values ('$firstN','$lastN','$studID','$email','$major')";
+// execute query
 $rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
+$row = mysql_fetch_row($rs);
 
-header('Location: 02StudHome.php');
+// validate query
+if ($row[3] == $studentID) {
+    $_SESSION["firstN"] = $_POST["firstN"];
+    $_SESSION["lastN"] = $_POST["lastN"];
+    $_SESSION["studID"] = $_POST["studID"];
+    $_SESSION["email"] = $_POST["email"];
+    $_SESSION["major"] = $_POST["major"];
+
+    header('Location: 02StudHome.php');
+}
+
+else {
+    $_SESSION["userDNE"] = TRUE;
+    header('Location: 01StudSignIn.php');   
+}
+
 ?>

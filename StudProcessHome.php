@@ -1,6 +1,7 @@
 <?php
 session_start();
 
+
 if($_POST["selection"] == 'Signup'){
 	header('Location: 03StudSelectType.php');
 }
@@ -20,5 +21,7 @@ elseif($_POST["selection"] == 'Search'){
 elseif($_POST["selection"] == 'Edit'){
 	header('Location: 06StudEditInfo.php');
 }
-
+elseif($_POST["selection"] == 'LogOut') {
+    header('Location: 01StudSignIn.php');
+}
 ?>

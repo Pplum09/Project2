@@ -13,7 +13,7 @@ session_start();
       alert("Value: " + stepVal);
     }
     </script>
-	<link rel='stylesheet' type='text/css' href='css/standard.css'/>
+	<link rel='stylesheet' type='text/css' href='../css/standard.css'/>
   </head> 
   <body>
     <div id="login">
@@ -23,27 +23,24 @@ session_start();
 		  <div class="field">
           <?php
             $debug = false;
-            include('CommonMethods.php');
+            include('../CommonMethods.php');
             $COMMON = new Common($debug);
 
-// Changed to get appointment data by checking for appointments labeled to edit rather than
-// relying on session variables
-	$sql = "SELECT * FROM `Proj2Appointments` WHERE `Alter` = 'Edit'";
-        $rs = $COMMON->executeQuery($sql, "Advising Appointments");
-	$row = mysql_fetch_row($rs);
+            $group = $_SESSION["GroupApp"];
+            parse_str($group);
 
             echo("<form action=\"AdminConfirmEditGroup.php\" method=\"post\" name=\"Edit\">");
-            echo("Time: ". date('l, F d, Y g:i A', strtotime($row[1])). "<br>");
+            echo("Time: ". date('l, F d, Y g:i A', strtotime($row[0])). "<br>");
             echo("Majors included: ");
-            if($row[3]){
-              echo("$row[3]<br>"); 
+            if($row[1]){
+              echo("$row[1]<br>"); 
             }
             else{
               echo("Available to all majors<br>"); 
             }
-            echo("Number of students enrolled: $row[5] <br>");
+            echo("Number of students enrolled: $row[2] <br>");
             echo("Student limit: ");
-            echo("<input type=\"number\" id=\"stepper\" name=\"stepper\" min=\"$row[5]\" max=\"$row[6]\" value=\"$row[6]\" />");
+            echo("<input type=\"number\" id=\"stepper\" name=\"stepper\" min=\"$row[2]\" max=\"$row[3]\" value=\"$row[3]\" />");
 
             echo("<br><br>");
 
@@ -52,8 +49,8 @@ session_start();
             echo("</div>");
             echo("</div>");
             echo("<div class=\"bottom\">");
-            if($row[5] > 0){
-              echo "<p style='color:red'>Note: There are currently $row[5] students enrolled in this appointment. <br>
+            if($row[2] > 0){
+              echo "<p style='color:red'>Note: There are currently $row[2] students enrolled in this appointment. <br>
                     The student limit cannot be changed to be under this amount.</p>";
             }
             echo("</div>");

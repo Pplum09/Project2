@@ -1,7 +1,7 @@
 <?php
 session_start();
 $debug = false;
-include('CommonMethods.php');
+include('../CommonMethods.php');
 $COMMON = new Common($debug);
 ?>
 
@@ -9,7 +9,7 @@ $COMMON = new Common($debug);
   <head>
     <meta charset="UTF-8" />
     <title>Select Advisor</title>
-	<link rel='stylesheet' type='text/css' href='css/standard.css'/>
+	<link rel='stylesheet' type='text/css' href='../css/standard.css'/>
   </head>
   <body>
     <div id="login">
@@ -33,11 +33,9 @@ $COMMON = new Common($debug);
 		</div>
 		</form>
 		<div>
-		<div class="nextButton">
 		<form method="link" action="02StudHome.php">
 		<input type="submit" name="home" class="button large" value="Cancel">
 		</form>
-		</div>
 		</div>
   </body>
 </html>

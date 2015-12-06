@@ -1,14 +1,9 @@
 <?php
 session_start();
 ?>
-
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Select Advising Type</title>
-	<link rel='stylesheet' type='text/css' href='css/standard.css'/>
-  </head>
-  <body>
+<?php
+    include("layoutHead.php");
+?>
     <div id="login">
       <div id="form">
         <div class="top">
@@ -17,7 +12,7 @@ session_start();
 	<form action="StudProcessType.php" method="post" name="SelectType">
 	<div class="nextButton">
 		<input type="submit" name="type" class="button large go" value="Individual">
-		<input type="submit" name="type" class="button large go" value="Group">
+		<input type="submit" name="type" class="button large go" value="Group" style="float: right;">
 	    </div>
 		</div>
 		</form>
@@ -27,10 +22,9 @@ session_start();
 <br>
 		<div>
 		<form method="link" action="02StudHome.php">
-		<div class="nextButton">
 		<input type="submit" name="home" class="button large" value="Cancel">
-		</div>
 		</form>
 		</div>
-  </body>
-</html>
+<?php
+    include("layoutFoot.php");
+?>

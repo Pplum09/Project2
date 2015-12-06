@@ -7,7 +7,7 @@ session_start();
   <head>
     <meta charset="UTF-8" />
     <title>UMBC COEIT Engineering and Computer Science Advising Admin Sign In</title>
-	<link rel='stylesheet' type='text/css' href='css/standard.css'/>
+	<link rel='stylesheet' type='text/css' href='../css/standard.css'/>
   </head>
   <body>
     <div id="login">
@@ -17,8 +17,7 @@ session_start();
 		<h2>Admin Sign In</h2>
 
     <?php
-      $id = $_SESSION["userID"];
-      if(empty($id)){		// Altered to check if username and password line up with a real advisor ID
+      if($_SESSION["UserVal"] == true){
         echo "<h3 style='color:red'>Invalid Username/Password combination</h3>";
       }
     ?>
