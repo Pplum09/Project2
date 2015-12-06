@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico"/>
     <meta charset="UTF-8" />
     <title>UMBC COEIT Engineering and Computer Science Advising Student Sign In</title>
 	<!--<link rel='stylesheet' type='text/css' href='../css/standard.css'/>-->
