@@ -14,7 +14,7 @@ $debug = false;
 	alert("Value: " + stepVal);
     }
     </script>
-	<link rel='stylesheet' type='text/css' href='../css/standard.css'/>
+	<link rel='stylesheet' type='text/css' href='css/standard.css'/>
   </head>
   <body>
     <div id="login">
@@ -26,11 +26,11 @@ $debug = false;
 	$date = $_POST["date"];
 	$type = $_POST["type"];
 			
-	include('../CommonMethods.php');
+	include('GetAdvisorData.php');
 	$COMMON = new Common($debug);
 
 
-      $User = $_SESSION["UserN"];
+      $User = getUsername();
 
       $sql = "SELECT `id`, `firstName`, `lastName` FROM `Proj2Advisors` WHERE `Username` = '$User'";
       $rs = $COMMON->executeQuery($sql, "Advising Appointments");
@@ -53,8 +53,10 @@ $debug = false;
 
 ?>
 	<form method="link" action="AdminUI.php">
+	<div class="nextButton">
 	<input type="submit" name="next" class="button large go" value="Return to Home">
 	<input type="button" name="print" class="button large go" value="Print" onClick="window.print()">
+	</div>
 	</form>
 
 	</div>

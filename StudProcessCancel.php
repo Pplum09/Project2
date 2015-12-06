@@ -1,15 +1,15 @@
 <?php
 session_start();
 $debug = false;
-include('../CommonMethods.php');
+include('GetStudentData.php');
 $COMMON = new Common($debug);
 
 if($_POST["cancel"] == 'Cancel'){
-	$firstn = $_SESSION["firstN"];
-	$lastn = $_SESSION["lastN"];
+	$firstn = getFirstName();
+	$lastn = getLastName();
 	$studid = $_SESSION["studID"];
-	$major = $_SESSION["major"];
-	$email = $_SESSION["email"];
+	$major = getMajor();
+	$email = getEmail();
 	
 	//remove stud from EnrolledID
 	$sql = "select * from Proj2Appointments where `EnrolledID` like '%$studid%'";

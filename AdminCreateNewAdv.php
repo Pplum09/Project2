@@ -1,5 +1,6 @@
 <?php
 session_start();
+include('GetAdvisorData.php');
 ?>
 
 <!DOCTYPE html>
@@ -7,7 +8,7 @@ session_start();
   <head>
     <meta charset="UTF-8" />
     <title>Create New Admin</title>
-	<link rel='stylesheet' type='text/css' href='../css/standard.css'/>
+	<link rel='stylesheet' type='text/css' href='css/standard.css'/>
 
      <script type="text/javascript">
     //   window.onload = function () {
@@ -31,8 +32,15 @@ session_start();
         <div class="top">
 		<h2>Create New Advisor Account</h2>
 		<?php
-      if($_SESSION["PassCon"] == true){
+      if(getConfirmPassword() == "false"){
         echo "<h3 style='color:red'>Passwords do not match!!</h3>";
+
+	// New advisor data should not be in the table if password and confirm password fields don't match
+	$debug = false;
+	$COMMON = new Common($debug);
+
+	$sql = "DELETE FROM `Proj2Advisors` WHERE `New` = 'true'";
+	$rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
       }
     ?>
 		<form action="AdminProcessCreateNew.php" method="post" name="Create">

@@ -1,14 +1,15 @@
 html{ 
       background-color: 
-      #99CCFF; 
+      #000066; 
       font-family: Arial; 
-      font-size: 13px; 
-      position: relative; 
+      font-size: 18px;
+      position: relative;
       }
 
       body{ 
       margin: 0; 
-      padding: 0; 
+      padding: 0;
+
       }
 
       a{ 
@@ -22,11 +23,11 @@ html{
 
       #login{ 
       color: #000; 
-      background-color: #fff; 
+      background-color: #9ff; 
       margin: 100px auto 0; 
       padding: 20px 20px 20px; 
       position: relative; 
-      width: 600px; 
+      width: 850px; 
       -webkit-border-radius: 8px; 
       -moz-border-radius: 8px; 
       border-radius: 8px; 
@@ -34,21 +35,28 @@ html{
 
 	h1{ 
       font-family: "Helvetica Neue", Arial, Helvetica, sans-serif; 
-      font-size: 36px; 
+      font-size: 50px; 
 	  text-align: center;
-      line-height: 50px; 
+      line-height: 70px; 
       margin: 0; 
       padding: 0; 
       }
 	  
       h2{ 
       font-family: "Helvetica Neue", Arial, Helvetica, sans-serif; 
-      font-size: 24px; 
-	  text-align: center;
+      font-size: 32px; 
+	text-align: center;
       line-height: 30px; 
-      margin: 0; 
-      padding: 0; 
+      padding: 0;
+	margin: 20px;
+      color: #444; 
       }
+
+	h3{
+	font-size: 30px;
+	position: relative;
+	left: 100px;
+	}
 
       ul{ 
       margin: 8px 20px; 
@@ -59,8 +67,8 @@ html{
       margin-top: 8px; 
       }
       
-      input[type="text"],input[type="email"], textarea {
-        background-color: #F6F6F6;
+      input[type="text"],input[type="email"],input[type="password"], textarea {
+        background-color: #FFFFFF;
         border: 1px solid #999;
         color: #444;
         font-family: Arial, Helvetica, sans-serif;
@@ -73,10 +81,9 @@ html{
       }
 	  
 	  select{
-	  font-size: 18px;
+	  font-size: 23px;
 	  font-family: Arial, Helvetica, sans-serif;
 	  color: #444;
-	  position: relative;
 	  }
       
       .button {
@@ -90,7 +97,7 @@ html{
         height: 25px;
         overflow: visible;
         padding: 0 12px;
-        margin: 5px auto 0;
+	margin: 10px 200;
         text-decoration: none;
         vertical-align: top;
         white-space: nowrap;
@@ -113,16 +120,18 @@ html{
       }
       
       .button.large {
-        font-size: 16px;
-        height: 32px;
+        font-size: 24px;
+        height: 40px;
         padding: 0 16px;
-		position: center;
+	position: center;
+	margin: 10px 200;
       }
       
       .button.go {
         background-color: #66AA44;
         color: #FFF;
       }
+
       
       .button.go:hover {
         background-color: #70B74E;
@@ -130,17 +139,21 @@ html{
       }
        
       .field{ 
-      margin: 8px 0; 
+      margin: 8px 150;
+	padding: 12px;
       }
 
       .field label{ 
       display: block; 
       font-weight: bold; 
-      font-size: 14px; 
+      font-size: 28px;
+	margin: 12 -100px;
+	text-align: left;
+	color: #621;
       }
 	  
       .actions{ 
-      text-align: right; 
+      text-align: right;
       }
 
       .bottom{ 
@@ -152,11 +165,11 @@ html{
 
       .top{ 
       border-bottom: 1px solid #eee; 
-      padding-bottom: 12px; 
+      padding-bottom: 12px;
       }
 
       .actions{ 
-      overflow: hidden; 
+      overflow: hidden;
       }
 
       .actions .secondary{ 
@@ -168,13 +181,24 @@ html{
 
       p{ 
       margin: 0; 
-      padding: 0; 
+      padding: 0;
+	font-size: 18;
       }
 
       .login-create{ 
       font-size: 16px; 
       font-weight: normal; 
       }
+
+	.nextButton {
+	text-align: center;
+	font-size: 50px;
+	 }
+
+	.returnButton {
+	text-align: center;
+	font-size: 50px;
+	}
     
       @media screen and (max-width: 767px){
         html, body { background-color: #fff; }
