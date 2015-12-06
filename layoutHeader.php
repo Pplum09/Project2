@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico"/>
     <meta charset="UTF-8" />
     <title>UMBC COEIT Engineering and Computer Science Advising Student Sign In</title>
 	<!--<link rel='stylesheet' type='text/css' href='../css/standard.css'/>-->
@@ -10,6 +11,15 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>  
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
       <style>
+    .centered {
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          /* bring your own prefixes */
+          transform: translate(-50%, -50%);
+        }
+
+
         body {
             display: flex;
             min-height: 100vh;
