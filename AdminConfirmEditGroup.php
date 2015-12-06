@@ -2,7 +2,6 @@
 session_start();
 $debug = false;
 include('CommonMethods.php');
-include('ConvertMajor.php');
 $COMMON = new Common($debug);
 ?>
 
@@ -77,10 +76,7 @@ $COMMON = new Common($debug);
             echo("Time: ". date('l, F d, Y g:i A', strtotime($row[1])). "<br>");
             echo("Majors included: ");
 
-            if($row[3]){
-		ConvertMajor($row[3])
-		echo("$row[3]<br>");
-		 }
+            if($row[3]){ echo("$row[3]<br>"); }
             else{ echo("Available to all majors<br>"); }
 
             echo("Number of students enrolled: $row[5]<br>");
@@ -106,8 +102,7 @@ $COMMON = new Common($debug);
             echo("Time: ". date('l, F d, Y g:i A', strtotime($row[1])). "<br>");
             echo("Majors included: ");
             if($row[3]){
-		ConvertMajor($row[3])
-             	echo("$row[3]<br>"); 
+              echo("$row[3]<br>"); 
             }
             else{
               echo("Available to all majors<br>"); 
@@ -119,8 +114,7 @@ $COMMON = new Common($debug);
             echo("<b>Time: ". date('l, F d, Y g:i A', strtotime($row[1])). "</b><br>");
             echo("<b>Majors included: ");
             if($row[3]){
-		ConvertMajor($row[3])
-              	echo("$row[3]</b><br>"); 
+              echo("$row[3]</b><br>"); 
             }
             else{
               echo("Available to all majors</b><br>"); 
