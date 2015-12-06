@@ -13,7 +13,7 @@ session_start();
 	alert("Value: " + stepVal);
     }
     </script>
-	<link rel='stylesheet' type='text/css' href='../css/standard.css'/>
+	<link rel='stylesheet' type='text/css' href='css/standard.css'/>
   </head> 
   <body>
     <div id="login">
@@ -24,7 +24,7 @@ session_start();
 		  
           <?php
             $debug = false;
-            include('../CommonMethods.php');
+            include('CommonMethods.php');
             $COMMON = new Common($debug);
 
             $sql = "SELECT * FROM `Proj2Appointments` WHERE `AdvisorID` != '0' and `Time` > '".date('Y-m-d H:i:s')."' ORDER BY `Time`";
@@ -117,7 +117,9 @@ session_start();
               echo("<br><br>");
 			  echo("</td</tr>");
               echo("<form method=\"link\" action=\"AdminUI.php\">");
+		echo("<div class=\"nextButton\">");
               echo("<input type=\"submit\" name=\"next\" class=\"button large go\" value=\"Return to Home\">");
+		echo("</div>");
               echo("</form>");
             }
           ?>

@@ -1,7 +1,8 @@
 <?php
 session_start();
+include('GetStudentData.php');
 if ($_POST["type"] == "Group"){
-	$_SESSION["advisor"] = $_POST["type"];
+	getAdvisor() = $_POST["type"];
 	header('Location: 08StudSelectTime.php');
 }
 elseif ($_POST["type"] == "Individual"){

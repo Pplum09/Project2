@@ -1,19 +1,20 @@
 <?php
 session_start();
 $debug = false;
-include('../CommonMethods.php');
+include('GetAdvisorData.php');
 $COMMON = new Common($debug);
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
   <head>
-	<link rel='stylesheet' type='text/css' href='../css/standard.css'/>
+	<link rel='stylesheet' type='text/css' href='css/standard.css'/>
   </head>
   <body>
     <div id="login">
       <div id="form">
         <div class="top">
+	<div class="field">
 		<h2>Appointments Created</h2><br>
 		<?php
 			$date = $_POST["Date"];
@@ -80,8 +81,8 @@ $COMMON = new Common($debug);
 			}
 			
 			//get advisor id
-			$User = $_SESSION["UserN"];
-			$Pass = $_SESSION["PassW"];
+			$User = getUsername();
+			$Pass = getPassword();
 			$sql = "select `id` from `Proj2Advisors` where `Username` = '$User' and `Password` = '$Pass'";
 			$rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
 			$row = mysql_fetch_row($rs);
@@ -107,8 +108,11 @@ $COMMON = new Common($debug);
 		?>
 		<br>
 		<form method="link" action="AdminUI.php">
+			<div class="nextButton">
 			<input type="submit" name="next" class="button large go" value="Return to Home">
+			</div>
 		</form>
+	</div>
 	</div>
 	<div class="bottom">
 		<p><span style="color:red">!!</span> indicates that this appointment already exists. A repeat appointment was not made.</p>

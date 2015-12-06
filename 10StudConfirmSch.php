@@ -7,7 +7,7 @@ $_SESSION["appTime"] = $_POST["appTime"]; // radio button selection from previou
   <head>
     <meta charset="UTF-8" />
     <title>Confirm Appointment</title>
-	<link rel='stylesheet' type='text/css' href='../css/standard.css'/>  </head>
+	<link rel='stylesheet' type='text/css' href='css/standard.css'/>  </head>
   <body>
 	<div id="login">
       <div id="form">
@@ -17,14 +17,14 @@ $_SESSION["appTime"] = $_POST["appTime"]; // radio button selection from previou
 		<form action = "StudProcessSch.php" method = "post" name = "SelectTime">
 	    <?php
 			$debug = false;
-			include('../CommonMethods.php');
+			include('GetStudentData.php');
 			$COMMON = new Common($debug);
 			
-			$firstn = $_SESSION["firstN"];
-			$lastn = $_SESSION["lastN"];
+			$firstn = getFirstName();
+			$lastn = getLastName();
 			$studid = $_SESSION["studID"];
-			$major = $_SESSION["major"];
-			$email = $_SESSION["email"];
+			$major = getMajor();
+			$email = getEmail();
 			
 			if($_SESSION["resch"] == true){
 				$sql = "select * from Proj2Appointments where `EnrolledID` like '%$studid%'";
@@ -48,7 +48,7 @@ $_SESSION["appTime"] = $_POST["appTime"]; // radio button selection from previou
 			}
 			
 			$currentAdvisorName;
-			$currentAdvisorID = $_SESSION["advisor"];
+			$currentAdvisorID = getAdvisor();
 			$currentDatephp = strtotime($_SESSION["appTime"]);
 			if($currentAdvisorID != 0){
 				$sql2 = "select * from Proj2Advisors where `id` = '$currentAdvisorID'";
@@ -73,7 +73,7 @@ $_SESSION["appTime"] = $_POST["appTime"]; // radio button selection from previou
 				echo "<input type='submit' name='finish' class='button large go' value='Submit'>";
 			}
 		?>
-			<input style="margin-left: 50px" type="submit" name="finish" class="button large" value="Cancel">
+			<input type="submit" name="finish" class="button large" value="Cancel">
 	    </div>
 		</form>
 		</div>

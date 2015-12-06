@@ -1,34 +1,38 @@
 <?php 
 
 class Common
-{
-    var $conn;
-    var $debug;
-    
-    function Common($debug)
-    {
-	$this->debug = $debug; 
-	$rs = $this->connect("jmatt3"); // db name really here
-	return $rs;
-    }
+{	
+	var $conn;
+	var $debug; // this is set by a initiated value in the constructor
+			
+	function Common($debug)
+	{
+		$this->debug = $debug; 
+		//$rs = $this->connect("jeanice1"); // db name really here
+		//$rs = $this->connect("web.coeadvising_db"); // db name really here
+		$rs = $this->connect("fd57611"); // db name really here
+		return $rs;
+	}
 
 // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% */
-    
-    function connect($db)// connect to MySQL
-    {
-	$conn = @mysql_connect("studentdb-maria.gl.umbc.edu", "jmatt3", "CRTL)%A3/MhKHq#/") or die("Could not connect to MySQL");
-	$rs = @mysql_select_db($db, $conn) or die("Could not connect select $db database");
-	$this->conn = $conn; 
-    }
+	
+	function connect($db)// connect to MySQL
+	{
+		$conn = @mysql_connect("studentdb-maria.gl.umbc.edu", "fd57611", "@6ZUr+kkCG%-PVLk") or die("<br> Could not connect to MySQL <br>");
+		// $conn = @mysql_connect("studentdb.gl.umbc.edu", "jeanice1", "jeanice1") or die("<br> Could not connect to MySQL <br>");
+		//$rs = @mysql_select_db($db, $conn) or die("<br> Could not connect to $db database <br>");
+		$rs = @mysql_select_db($db, $conn) or die("<br> Could not connect to $db database <br>");
+		$this->conn = $conn; 
+	}
 
 // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% */
-    
-    function executeQuery($sql, $filename) // execute query
-    {
-	if($this->debug == true) { echo("$sql <br>\n"); }
-	$rs = mysql_query($sql, $this->conn) or die("Could not execute query '$sql' in $filename"); 
-	return $rs;
-    }
+	
+	function executeQuery($sql, $filename) // execute query
+	{
+		if($this->debug == true) { echo("$sql <br>\n"); }
+		$rs = mysql_query($sql, $this->conn) or die("<br> Could not execute query '$sql' in $filename <br>"); 
+		return $rs;
+	}			
 
 } // ends class, NEEDED!!
 
