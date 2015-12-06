@@ -64,18 +64,28 @@ $COMMON = new Common($debug);
               array_push($datetimes, $newDatetime);
             }
           }
-          
+
           //major stuff
           $majorDB = "";
           $majorPrint = "All";
           if(!empty($majors)){
-            $majorPrint = "";
-            foreach($majors as $m){
-              $majorDB .= $m . " ";
-              $majorPrint .= $m . ", ";
-            }
-            $majorPrint = substr($majorPrint, 0, -2);
-          }
+	      $majorPrint = "";
+	      foreach($majors as $m)
+	      {
+		  if($m == "Engineering")
+		  { $majorDB .= "ENGR" . " "; }
+		  if($m == "Mechanical Engineering")
+		  { $majorDB .= "MENG" . " "; }
+		  if($m == "Chemical Engineering")
+		  { $majorDB .= "CENG" . " "; }
+		  if($m == "Computer Science")
+		  { $majorDB .= "CMSC" . " "; }
+		  if($m == "Computer Engineering")
+		  { $majorDB .= "CMPE" . " "; }
+		  $majorPrint .= $m . ", ";
+	      }
+	      $majorPrint = substr($majorPrint, 0, -2);
+	  }
           
           //get advisor id
           $User = $_SESSION["UserN"];

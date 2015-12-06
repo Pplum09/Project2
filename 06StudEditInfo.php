@@ -47,10 +47,11 @@ while($row = mysql_fetch_row($rs)){
 			<div class="field">
 				  <label for="major">Major</label>
 				  <select id="major" name = "major">
-					<option <?php if($_SESSION["major"] == 'Computer Engineering'){echo("selected");}?>>Computer Engineering</option>
-					<option <?php if($_SESSION["major"] == 'Computer Science'){echo("selected");}?>>Computer Science</option>
-					<option <?php if($_SESSION["major"] == 'Mechanical Engineering'){echo("selected");}?>>Mechanical Engineering</option>
-					<option <?php if($_SESSION["major"] == 'Chemical Engineering '){echo("selected");}?>>Chemical Engineering</option>
+                                        <option <?php if($_SESSION["major"] == 'CMPE'){echo("selected");}?>>Computer Engineering</option>
+                                        <option <?php if($_SESSION["major"] == 'CMSC'){echo("selected");}?>>Computer Science</option>
+                                        <option <?php if($_SESSION["major"] == 'MENG'){echo("selected");}?>>Mechanical Engineering</option>
+                                        <option <?php if($_SESSION["major"] == 'CENG'){echo("selected");}?>>Chemical Engineering</option>
+                                        <option <?php if($_SESSION["major"] == 'ENGR'){echo("selected");}?>>Engineering</option>
 <!-- someday
 					<option <?php if($_SESSION["major"] == 'Africana Studies'){echo("selected");}?>>Africana Studies</option>
 					<option <?php if($_SESSION["major"] == 'American Studies'){echo("selected");}?>>American Studies</option>

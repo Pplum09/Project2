@@ -11,11 +11,16 @@ else{
 	$firstn = $_SESSION["firstN"];
 	$lastn = $_SESSION["lastN"];
 	$studid = $_SESSION["studID"];
-	$major = $_SESSION["major"];
 	$email = $_SESSION["email"];
 	$advisor = $_SESSION["advisor"];
+	$major = $_SESSION["major"];
 
-
+        if($major == "Computer Science") { $major = "CMSC"; }
+        else if($major == "Computer Engineering") { $major = "CMPE"; }
+        else if($major == "Chemical Engineering") { $major = "CENG"; }
+        else if($major == "Mechanical Engineering") { $major = "MENG"; }
+        else if($major == "Engineering") { $major = "ENGR"; }
+        else { $major == ""; }
 
 	$apptime = $_SESSION["appTime"];
 	if($_SESSION["studExist"] == false){
