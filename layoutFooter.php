@@ -27,6 +27,8 @@
             });
       </script>
 
+       <?php include("advisingButton.php"); ?>
+
   </body>
   
 </html>
