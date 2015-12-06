@@ -27,12 +27,21 @@ $studID = $_SESSION["studID"];
 
 			if($num_rows > 0)
 			{
-				$datephp = strtotime($_SESSION["appTime"]);
-
+				$row = mysql_fetch_row($rs); // get legit data
+				$advisorID = $row[2];
+				$datephp = strtotime($row[1]);
+				
+				if($advisorID != 0){
+					$sql2 = "select * from Proj2Advisors where `id` = '$advisorID'";
+					$rs2 = $COMMON->executeQuery($sql2, $_SERVER["SCRIPT_NAME"]);
+					$row2 = mysql_fetch_row($rs2);
+					$advisorName = $row2[1] . " " . $row2[2];
+				}
+				else{$advisorName = "Group";}
+			
 				echo "<label for='info'>";
-				echo "Advisor: ", $_SESSION["appAdName"], "<br>";	
-				echo "Appointment: ", date('l, F d, Y g:i A', $datephp), "<br>";
-				echo "Office located at ", $_SESSION["appLoc"], "</label>";		//addition to give student advisor's office location
+				echo "Advisor: ", $advisorName, "<br>";
+				echo "Appointment: ", date('l, F d, Y g:i A', $datephp), "</label>";
 			}
 			else // something is up, and there DB table needs to be fixed
 			{

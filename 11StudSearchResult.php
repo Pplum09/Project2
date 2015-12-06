@@ -6,7 +6,6 @@ session_start();
 
 $debug = false;
 include('GetStudentData.php');
-include('ConvertMajor.php');		// my code to convert DB major to unabbreviated
 $COMMON = new Common($debug);
 ?>
 
@@ -73,7 +72,6 @@ $COMMON = new Common($debug);
 					if($row){
 						
 						while($row = mysql_fetch_row($rsA)){
-							$row[3] = ConvertMajor($row[3]);		// my code to unabbreviate DB major
 							if($row[2] == 0){
 								$advName = "Group";
 							}
@@ -98,7 +96,6 @@ $COMMON = new Common($debug);
 							$rsA = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
 							if($row){
 								while($row = mysql_fetch_row($rsA)){
-									$row[3] = ConvertMajor($row[3]);		// my code to unabbreviate DB major
 									if($row[2] == 0){
 										$advName = "Group";
 									}
@@ -119,7 +116,6 @@ $COMMON = new Common($debug);
 							$row = mysql_fetch_row($rs);
 							if($row){
 								while($row = mysql_fetch_row($rs)){
-									$row[3] = ConvertMajor($row[3]);		// my code to unabbreviate DB major
 									if($row[2] == 0){
 										$advName = "Group";
 									}
