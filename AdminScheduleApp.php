@@ -7,7 +7,7 @@ session_start();
   <head>
     <meta charset="UTF-8" />
     <title>Schedule Appointment</title>
-	<link rel='stylesheet' type='text/css' href='../css/standard.css'/>
+	<link rel='stylesheet' type='text/css' href='css/standard.css'/>
   </head>
   <body>
     <div id="login">
@@ -19,14 +19,16 @@ session_start();
 	<form method="post" action="AdminProcessSchedule.php">
 	<div class="nextButton">
 		<input type="submit" name="next" class="button large go" value="Individual">
-		<input type="submit" name="next" class="button large go" value="Group" style="float: right;">
+		<input type="submit" name="next" class="button large go" value="Group">
 	</div>
 	</form>
         </div>
 	</div>
 		</form>
 		<form method="link" action="AdminUI.php">
+		<div class="nextButton">
 		<input type="submit" name="home" class="button large" value="Cancel">
+		</div>
 		</form>
    	</div>
 	</div>

@@ -1,5 +1,8 @@
 <?php
   session_start();
+  include('GetAdvisorData.php');
+  $debug = false;
+  $COMMON = new Common($debug);
 ?>
 
 <!DOCTYPE html>
@@ -13,192 +16,7 @@
 	alert("Value: " + stepVal);
     }
     </script>
-    <style type="text/css">
-      html{ 
-      background-color: 
-      #99CCFF; 
-      font-family: Arial; 
-      font-size: 13px; 
-      position: relative; 
-      }
-
-      body{ 
-      margin: 0; 
-      padding: 0; 
-      }
-
-      a{ 
-      color: #07f; 
-      text-decoration: none; 
-      }
-
-      a:hover{ 
-      text-decoration: underline; 
-      }
-
-      #login{ 
-      color: #000; 
-      background-color: #fff; 
-      margin: 100px auto 0; 
-      padding: 20px 20px 20px; 
-      position: relative; 
-      width: 600px; 
-      -webkit-border-radius: 8px; 
-      -moz-border-radius: 8px; 
-      border-radius: 8px; 
-      }
-
-	h1{ 
-      font-family: "Helvetica Neue", Arial, Helvetica, sans-serif; 
-      font-size: 36px; 
-	  text-align: center;
-      line-height: 50px; 
-      margin: 0; 
-      padding: 0; 
-      }
-	  
-      h2{ 
-      font-family: "Helvetica Neue", Arial, Helvetica, sans-serif; 
-      font-size: 24px; 
-	  text-align: center;
-      line-height: 30px; 
-      margin: 0; 
-      padding: 0; 
-      }
-
-      ul{ 
-      margin: 8px 20px; 
-      padding: 0; 
-      }
-
-      li{ 
-      margin-top: 8px; 
-      }
-      
-      input[type="text"],input[type="email"], textarea {
-        background-color: #F6F6F6;
-        border: 1px solid #999;
-        color: #444;
-        font-family: Arial, Helvetica, sans-serif;
-        font-size: 20px;
-        line-height: 16px;
-        padding: 4px;
-        -moz-border-radius: 4px;
-        -webkit-border-radius: 4px;
-        width: 262px;
-      }
-	  
-	  select{
-	  font-size: 18px;
-	  font-family: Arial, Helvetica, sans-serif;
-	  color: #444;
-	  position: relative;
-	  }
-      
-      .button {
-        background-color: #768089;
-        border: none;
-        color: #fff;
-        cursor: pointer;
-        display: inline-block;
-        font-size: 11px;
-        font-weight: bold;
-        height: 25px;
-        overflow: visible;
-        padding: 0 12px;
-        margin: 5px auto 0;
-        text-decoration: none;
-        vertical-align: top;
-        white-space: nowrap;
-        width: auto;
-        -moz-appearance: none;
-        -moz-border-radius: 4px;
-        -webkit-appearance: none;
-        -webkit-border-radius: 4px;
-        line-height: 25px;
-      }
-      
-      .button:hover {
-        background-color: #87929D;
-        color: #fff;
-        text-decoration: none;
-      }
-      
-      a.button.large {
-        line-height: 32px;
-      }
-      
-      .button.large {
-        font-size: 16px;
-        height: 32px;
-        padding: 0 16px;
-		position: center;
-      }
-      
-      .button.go {
-        background-color: #66AA44;
-        color: #FFF;
-      }
-      
-      .button.go:hover {
-        background-color: #70B74E;
-        color: #FFF;
-      }
-       
-      .field{ 
-      margin: 8px 0; 
-      }
-
-      .field label{ 
-      display: block; 
-      font-weight: bold; 
-      font-size: 14px; 
-      }
-	  
-      .actions{ 
-      text-align: right; 
-      }
-
-      .bottom{ 
-      border-top: 0px solid #ddd; 
-      padding-top: 12px; 
-      font-size: 11px; 
-      color: #666;
-      }
-
-      .top{ 
-      border-bottom: 1px solid #eee; 
-      padding-bottom: 12px; 
-      }
-
-      .actions{ 
-      overflow: hidden; 
-      }
-
-      .actions .secondary{ 
-      float: left; 
-      font-size: 14px; 
-      line-height: 32px; 
-      text-align: left; 
-      }
-
-      p{ 
-      margin: 0; 
-      padding: 0; 
-      }
-
-      .login-create{ 
-      font-size: 16px; 
-      font-weight: normal; 
-      }
-    
-      @media screen and (max-width: 767px){
-        html, body { background-color: #fff; }
-        #login { border-radius: 0; margin: 60px 0 0; width: 94%; padding: 3%; border-top: 1px solid #ddd; }
-        input[type="text"],input[type="password"], textarea { width: 96%; padding: 2% 2%; }
-        .button-item { margin: 8px 8px 12px; }
-      }
-    </style>
+    <link rel="stylesheet" type="text/css" href="css/standard.css">
   </head>
   <body>
     <div id="login">
@@ -207,26 +25,37 @@
 		<h2>New Advisor has been created:</h2>
 
 		<?php
-			$first = $_SESSION["AdvF"];
-			$last = $_SESSION["AdvL"];
-			$user = $_SESSION["AdvUN"];
-			$pass = $_SESSION["AdvPW"];
+			// Get added advisor's data without overwriting $_SESSION["userID"]
 
-			include('../CommonMethods.php');
-			$debug = false;
-			$Common = new Common($debug);
+			$sql = "SELECT * FROM `Proj2Advisors` WHERE `New` = 'true'";
+      			$rs = $COMMON->executeQuery($sql, "Advising Appointments");
+      			$row = mysql_fetch_row($rs);
 
-      $sql = "SELECT * FROM `Proj2Advisors` WHERE `Username` = '$user' AND `FirstName` = '$first' AND  `LastName` = '$last'";
-      $rs = $Common->executeQuery($sql, "Advising Appointments");
-      $row = mysql_fetch_row($rs);
-      if($row){
+			$id = $row[0];
+			$first = $row[1];
+			$last = $row[2];
+			$user = $row[3];
+			$pass = $row[4];
+
+
+	// New advisor was added to table regardless of whether an equivalent advisor already existed: if there are two
+	// advisors with the same data, the new one will be deleted
+
+	$sql = "SELECT * FROM `Proj2Advisors` WHERE `Username` = '$user' AND `FirstName` = '$first' AND  `LastName` = '$last'";
+	$rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
+	$num_rows = mysql_num_rows($rs);
+
+      if($num_rows == 2){
         echo("<h3>Advisor $first $last already exists</h3>");
+	
+	$sql = "DELETE FROM `Proj2Advisors` WHERE `id` = '$id'";
+	$rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
       }
       else{
-  			$sql = "INSERT INTO `Proj2Advisors`(`FirstName`, `LastName`, `Username`, `Password`) 
-  			VALUES ('$first', '$last', '$user', '$pass')";
-        echo ("<h3>$first $last<h3>");
-        $rs = $Common->executeQuery($sql, "Advising Appointments");
+	echo ("<h3>$first $last<h3>");
+
+	$sql = "UPDATE `Proj2Advisors` SET `New`= 'false' WHERE `id` = '$id'";
+	$rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
       }
 		?>
 		<form method="link" action="AdminUI.php">

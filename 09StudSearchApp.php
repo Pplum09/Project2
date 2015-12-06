@@ -1,103 +1,69 @@
 <?php
 session_start();
 $debug = false;
-include('../CommonMethods.php');
+include('CommonMethods.php');
 $COMMON = new Common($debug);
 ?>
-<?php
-    include("layoutHeader.php");
-?>
-<link rel="stylesheet" href="css/jquery.timepicker.css">
-<script src="js/jquery.timepicker.min.js"></script> 
-    <h4 class="center">Search for Appointments</h4>
-    <div class="row">
-        <div class="col s4 offset-s4">
-            <form id="search" action="11StudSearchResult.php" method="post" name="SearchApp">
-                <div>
-                    <a>Date<input id='date'type="date" name='date'class="datepicker"></a>
-                </div>
-                <div>
-                    <span>
-                    <div>Start Time:</div>
-                    <div>
-                        <input id='startTime' name="time[]">
-                    </div>
-                    </span>
-                    <span>
-                    <div>End Time:</div>
-                    <div>
-                        <input id='endTime'> 
-                    </div>
-                    </span>
-                </div> 
-                <div>
-                    <select id="advisor" name="advisor">
-                        <option value="" selected>All Appointments</option>
-                        <option value='I'>Individual Appointments</option>
-				        <option value='0'>Group Appointments</option>
-				        <?php
-                            $sql = "SELECT * FROM Proj2Advisors";
-                            $rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
-                            while($row = mysql_fetch_row($rs)){
-                                echo "<option value='$row[0]'>$row[1] $row[2]</option>";
-                            }
-                        ?>
-                    </select>
-                </div>
-                <div style="margin-top:10px">
-                    <input type="submit" name="go" value="Submit">
-                </div>
-            </form>  
-            <form action="02StudHome.php" method="post" name="complete">
-            <div style="margin-top:10px" class="returnButton">
-                <input type="submit" name="return" value="Return to Home">
-            </div>
-		</form>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Search for Appointment</title>
+    <link rel="stylesheet" type="text/css" href="css/standard.css">
+  </head>
+  <body>
+    <div id="login">
+      <div id="form">
+        <div class="top">
+		<h1>Search for Appointments</h1>
+	    <div class="field">
+		<form action="11StudSearchResult.php" method="post" name="SearchApp">
+			<label for="date">Date</label>
+	      	<input id="date" type="date" name="date" placeholder="mm/dd/yyyy" autofocus> (mm/dd/yyyy)
+			
+			<label for="time">Time</label><span style="font-size: 20px; font-family: Arial, Helvetica, sans-serif;">
+			<input type="checkbox" name="time[]" value="8:00:00"> 8:00am - 8:30am<br>
+			<input type="checkbox" name="time[]" value="8:30:00"> 8:30am - 9:00am<br>
+			<input type="checkbox" name="time[]" value="9:00:00"> 9:00am - 9:30am<br>
+			<input type="checkbox" name="time[]" value="9:30:00"> 9:30am - 10:00am<br>
+			<input type="checkbox" name="time[]" value="10:00:00"> 10:00am - 10:30am<br>
+			<input type="checkbox" name="time[]" value="10:30:00"> 10:30am - 11:00am<br>
+			<input type="checkbox" name="time[]" value="11:00:00"> 11:00am - 11:30am<br>
+			<input type="checkbox" name="time[]" value="11:30:00"> 11:30am - 12:00pm<br>
+			<input type="checkbox" name="time[]" value="12:00:00"> 12:00pm - 12:30pm<br>
+			<input type="checkbox" name="time[]" value="12:30:00"> 12:30pm - 1:00pm<br>
+			<input type="checkbox" name="time[]" value="13:00:00"> 1:00pm - 1:30pm<br>
+			<input type="checkbox" name="time[]" value="13:30:00"> 1:30pm - 2:00pm<br>
+			<input type="checkbox" name="time[]" value="14:00:00"> 2:00pm - 2:30pm<br>
+			<input type="checkbox" name="time[]" value="14:30:00"> 2:30pm - 3:00pm<br>
+			<input type="checkbox" name="time[]" value="15:00:00"> 3:00pm - 3:30pm<br>
+			<input type="checkbox" name="time[]" value="15:30:00"> 3:30pm - 4:00pm<br></span>
+
+			<label for="advisor">Advisor</label>
+	      	<select id="advisor" name="advisor">
+				<option value="">All appointments</option>
+				<option value="I">Individual appointments</option>
+				<option value="0">Group appointments</option>
+				<?php
+				$sql = "select * from Proj2Advisors";
+				$rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
+				while($row = mysql_fetch_row($rs)){
+					echo "<option value='$row[0]'>$row[1] $row[2]</option>";
+				}
+				?>
+			</select>
+        </div>
+	    <div class="nextButton">
+			<input type="submit" name="go" class="button large go" value="Go">
+	    </div>
 		</div>
-    </div>
-<button id="test">TEST</button>
-          <script>
-              $(document).ready(function() {
-                $('select').material_select();
-            });
-              
-            $('#test').click(function() {
-                var startTime = $('#startTime').val();
-                var endTime = $('#endTime').val();
-                // holds am/pm info
-                var timeCheck = startTime.slice(-2);
-                
-                // just time
-                startTime = startTime.slice(0, -2);
-                
-                if (timeCheck == "pm") {
-                    var hour = starTime.slice(0, -2);
-                    var hourNum = parseInt(hour) + 12;
-                    hour = hourNum.toString();
-                    startTime = hour + startTime.slice(1, 4);
-                }
-                
-                timeCheck = endTime.slice(-2);
-                if (timeCheck == "pm") {
-                    var hour = endTime.slice(0, -2);
-                    var hourNum = parseInt(hour) + 12;
-                    hour = hourNum.toString();
-                    endTime = hour + endTime.slice(1, 4);
-                }
-                
-                $('#startTime').val() = startTime + ":00";
-                $('#endTime').val() = endTime + ":00";
-            });
-              
-            $('.datepicker').pickadate({
-                selectMonths: true, // Creates a dropdown to control month
-                selectYears: 15, // Creates a dropdown of 15 years to control year
-                format: 'dd/mm/yyyy'
-            });
-              
-            $('#startTime').timepicker({'step': 30});
-            $('#endTime').timepicker({'step': 30});
-          </script>
-<?php
-    include("layoutFooter.php");
-?>
+		</form>
+		<form action="02StudHome.php" method="post" name="complete">
+	    <div class="returnButton">
+			<input type="submit" name="return" class="button large go" value="Return to Home">
+	    </div>
+		</div>
+		</form>
+
+  </body>
+</html>
