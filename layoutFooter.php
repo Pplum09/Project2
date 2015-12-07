@@ -19,7 +19,7 @@
                   gutter: 0, // Spacing from edge
                   belowOrigin: true, // Displays dropdown below the button
                   alignment: 'left' // Displays dropdown with edge aligned to the left of button
-            }
+            });
             
          $('.datepicker').pickadate({
                 selectMonths: true, // Creates a dropdown to control month

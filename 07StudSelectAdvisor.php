@@ -16,7 +16,6 @@ include("layoutHeader.php");
     </div>
 </div>
 
-
 <div class='centered'>
     <form action="08StudSelectTime.php" method="post" name="SelectAdvisor">
     <h3>Select Advisor</h3> 
