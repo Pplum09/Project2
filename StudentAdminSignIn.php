@@ -10,8 +10,7 @@
             <form method="link" action="01StudSignIn.php"> 
                 <input id="student-invis" style="display:none" type="submit" name="next" class="button large go" value="Sign in as a Student">
             </form>
-            <form method="link" action="AdminSignIn.html">
-                
+            <form method="link" action="AdminSignIn.php">
                 <input id='admin-invis' style="display:none" type="submit" name="next" class="button large go" value="Sign in as an Admin">
             </form>
     

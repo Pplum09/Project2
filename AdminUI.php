@@ -6,16 +6,8 @@ if($debug) { echo("Session variables-> ".var_dump($_SESSION)); }
 
 include('GetAdvisorData.php');
 $COMMON = new Common($debug);
+include("layoutHeader.php");
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Admin Home</title>
-	<link rel='stylesheet' type='text/css' href='css/standard.css'/>
-  </head>
-  <body>
     <div id="login">
       <div id="form">
         <div class="top">
@@ -64,7 +56,6 @@ $COMMON = new Common($debug);
 	</div>
 
 	<?php include('./workOrder/workButton.php'); ?>
-
-</body>
-  
-</html>
+<?php
+    include("layoutFooter.php");
+?>

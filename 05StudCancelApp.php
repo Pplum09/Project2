@@ -3,20 +3,10 @@ session_start();
 $debug = false;
 include('GetStudentData.php');
 $COMMON = new Common($debug);
+include("layoutHeader.php");
 ?>
-
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Cancel Appointment</title>
-    <link rel="stylesheet" type="text/css" href="css/standard.css">
-  </head>
-  <body>
-    <div id="login">
-      <div id="form">
-        <div class="top">
-		<h1>Cancel Appointment</h1>
-	    <div class="field">
+<div class="center">
+    <h3>Cancel Current Appointment</h3>
 	    <?php
 			$firstn = getFirstName();
 			$lastn = getLastName();
@@ -37,23 +27,32 @@ $COMMON = new Common($debug);
 				$oldAdvisorName = $row2[1] . " " . $row2[2];
 			}
 			else{$oldAdvisorName = "Group";}
-			
-			echo "<h2>Current Appointment</h2>";
-			echo "<label for='info'>";
+
 			echo "Advisor: ", $oldAdvisorName, "<br>";
-			echo "Appointment: ", date('l, F d, Y g:i A', $oldDatephp), "</label><br>";
+			echo "Appointment: ", date('l, F d, Y g:i A', $oldDatephp), "<br>";
 		?>		
-        </div>
-	    <div class="finishButton">
-			<form action = "StudProcessCancel.php" method = "post" name = "Cancel">
-			<input type="submit" name="cancel" class="button large go" value="Cancel">
-			<input type="submit" name="cancel" class="button large" value="Keep">
-			</form>
-	    </div>
-		</div>
-		<div class="bottom">
-			<p>Click "Cancel" to cancel appointment. Click "Keep" to keep appointment.</p>
-		</div>
-		</form>
-  </body>
-</html>
+    <form action = "StudProcessCancel.php" method = "post" name = "Cancel">
+        
+        <!--DISPLAYED BUTTONS-->
+        <a id='cancel' class="waves-effect waves-light btn-large">Cancel</a>
+        <a id='keep' class="waves-effect waves-light btn-large">Keep</a>
+
+        <!--HIDDEN-->
+        <input id='cancel-invis' style='display:none' type="submit" name="cancel" value="Cancel">
+        <input id='keep-invis' style='display:none' type="submit" name="cancel" value="Keep">
+    </form>
+</div>
+<script>
+    
+    $('#keep').click(function() {
+        $('#keep-invis').trigger('click');
+    });
+    
+    $('#cancel').click(function() {
+        $('#cancel-invis').trigger('click');
+    });
+    
+</script>
+<?php
+    include("layoutFooter.php");
+?>

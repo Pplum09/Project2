@@ -7,157 +7,157 @@ session_start();
 $debug = false;
 include('GetStudentData.php');
 $COMMON = new Common($debug);
+include("layoutHeader.php");
 ?>
-
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Search for Appointment</title>
-	<link rel='stylesheet' type='text/css' href='css/standard.css'/>
-  </head>
-  <body>
-    <div id="login">
-      <div id="form">
-        <div class="top">
-		<h1>Search Results</h1>
-		<h3>Showing open appointments only</h3>
-	    <div class="field">
-			<p>Showing results for: </p>
-			<?php
-				$date = $_POST["date"];
-				$times = $_POST["time"];
-				$advisor = $_POST["advisor"];
-				$results = array();
+<div class='center'>
+    <h1>Search Results</h1>
+    <h3>Showing open appointments only</h3>			
+    <p>Showing results for: </p>
+    <?php
+        $date = $_POST["date"];
+        $times = $_POST["time"];
+        $advisor = $_POST["advisor"];
+        $results = array();
 				
-				if($date == ''){ echo "Date: All"; }
-				else{ 
-					echo "Date: ",$date;
-					$date = date('Y-m-d', strtotime($date));
-				}
-				echo "<br>";
-				if(empty($times)){ echo "Time: All"; }
-				else{
-					$i = 0;
-					echo "Time: ";
+        if($date == '') { 
+            echo "Date: All"; 
+        }
 
-					foreach($times as $t){
-						echo ++$i, ") ", date('g:i A', strtotime($t)), " ";
-					}
-				}
-				echo "<br>";
-				if($advisor == ''){ echo "Advisor: All appointments"; }
-				elseif($advisor == 'I'){ echo "Advisor: All individual appointments"; }
-				elseif($advisor == '0'){ echo "Advisor: All group appointments"; }
-				else{
-					$sql = "select * from Proj2Advisors where `id` = '$advisor'";
-					$rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
-					while($row = mysql_fetch_row($rs)){
-						echo "Advisor: ", $row[1], " ", $row[2];
-					}
-				}
-				?>
-				<br><br><label>
-				<?php
-				if(empty($times)){
-					if($advisor == 'I'){
-						$sql = "select * from Proj2Appointments where `Time` like '%$date%' and `Time` > '".date('Y-m-d H:i:s')."' and `AdvisorID` != 0 and `EnrolledNum` = 0 and `Major` like '%".getMajor()."%' order by `Time` ASC Limit 30";
-						$rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
-					}
-					else{
-						$sql = "select * from Proj2Appointments where `Time` like '%$date%' and `Time` > '".date('Y-m-d H:i:s')."' and `AdvisorID` like '%$advisor%' and `EnrolledNum` = 0 and `Major` like '%".getMajor()."%' order by `Time` ASC Limit 30";
-						$rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
-					}
-					$row = mysql_fetch_row($rs);
-					$rsA = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
-					if($row){
-						
-						while($row = mysql_fetch_row($rsA)){
-							if($row[2] == 0){
+        else { 
+            echo "Date: ",$date;
+            $date = date('Y-m-d', strtotime($date));    
+        }
+        echo "<br>";
+        if (empty($times)) { 
+            echo "Time: All"; 
+        }
+        else {
+            $i = 0;
+            echo "Time: ";
+            foreach($times as $t) {
+				echo ++$i, ") ", date('g:i A', strtotime($t)), " ";
+            }
+        }
+        echo "<br>";
+        if ($advisor == '') { 
+            echo "Advisor: All appointments"; 
+        }
+        elseif ($advisor == 'I') { 
+            echo "Advisor: All individual appointments"; 
+        }
+        elseif ($advisor == '0') { 
+            echo "Advisor: All group appointments"; 
+        }
+        else {
+            $sql = "select * from Proj2Advisors where `id` = '$advisor'";
+            $rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
+            while($row = mysql_fetch_row($rs)) {
+				echo "Advisor: ", $row[1], " ", $row[2];
+            }  
+        }
+        ?>
+        <br><br>
+        <?php
+        if(empty($times)) {
+            if($advisor == 'I') {
+				$sql = "select * from Proj2Appointments where `Time` like '%$date%' and `Time` > '".date('Y-m-d H:i:s')."' and `AdvisorID` != 0 and `EnrolledNum` = 0 and `Major` like '%".getMajor()."%' order by `Time` ASC Limit 30";
+				$rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
+            }
+            else {
+                $sql = "select * from Proj2Appointments where `Time` like '%$date%' and `Time` > '".date('Y-m-d H:i:s')."' and `AdvisorID` like '%$advisor%' and `EnrolledNum` = 0 and `Major` like '%".getMajor()."%' order by `Time` ASC Limit 30";
+				$rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
+            }
+            $row = mysql_fetch_row($rs);
+            $rsA = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
+            if($row) {	
+                while($row = mysql_fetch_row($rsA)){
+                    if($row[2] == 0) {
+                        $advName = "Group";
+                    }
+                    else { 
+                        $advName = getAdvisorName($row); 
+                    }
+                    $found = "<tr><td>". date('l, F d, Y g:i A', strtotime($row[1]))."</td>".
+                                        "<td>". $advName."</td>". 
+                                        "<td>". $row[3]. "</td></tr>".
+
+                                array_push($results, $found);
+                }
+            }
+        }
+        else {
+            if($advisor == 'I') {
+				foreach($times as $t) {
+				    $sql = "select * from Proj2Appointments where `Time` like '%$date%' and `Time` > '".date('Y-m-d H:i:s')."' and `Time` like '%$t%' and `AdvisorID` != 0 and `EnrolledNum` = 0 and `Major` like '%".getMajor()."%' order by `Time` ASC Limit 30";
+				    $rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
+				    $row = mysql_fetch_row($rs);
+				    $rsA = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
+				    if ($row) {
+				        while ($row = mysql_fetch_row($rsA)) {
+				            if($row[2] == 0) {
 								$advName = "Group";
-							}
-							else{ $advName = getAdvisorName($row); }
-							
-
-
-							$found = 	"<tr><td>". date('l, F d, Y g:i A', strtotime($row[1]))."</td>".
-									"<td>". $advName."</td>". 
-									"<td>". $row[3]. "</td></tr>".
-
-							array_push($results, $found);
-						}
-					}
-				}
-				else{
-					if($advisor == 'I'){
-						foreach($times as $t){
-							$sql = "select * from Proj2Appointments where `Time` like '%$date%' and `Time` > '".date('Y-m-d H:i:s')."' and `Time` like '%$t%' and `AdvisorID` != 0 and `EnrolledNum` = 0 and `Major` like '%".getMajor()."%' order by `Time` ASC Limit 30";
-							$rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
-							$row = mysql_fetch_row($rs);
-							$rsA = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
-							if($row){
-								while($row = mysql_fetch_row($rsA)){
-									if($row[2] == 0){
-										$advName = "Group";
-									}
-									else{ $advName = getAdvisorName($row); }
+				            }
+				            else { 
+                                $advName = getAdvisorName($row); 
+                            }
 
 							$found = 	"<tr><td>". date('l, F d, Y g:i A', strtotime($row[1]))."</td>".
 									"<td>". $advName."</td>". 
 									"<td>". $row[3]. "</td></tr>".
 									array_push($results, $found);
-								}
-							}
-						}
-					}
-					else{
-						foreach($times as $t){
-							$sql = "select * from Proj2Appointments where `Time` like '%$date%' and `Time` > '".date('Y-m-d H:i:s')."' and `Time` like '%$t%' and `AdvisorID` like '%$advisor%' and `EnrolledNum` = 0 and `Major` like '%".getMajor()."%' order by `Time` ASC Limit 30";
-							$rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
-							$row = mysql_fetch_row($rs);
-							if($row){
-								while($row = mysql_fetch_row($rs)){
-									if($row[2] == 0){
-										$advName = "Group";
-									}
-									else{ $advName = getAdvisorName($row); }
-
+				        }
+				    }
+				}
+            }
+            else{
+				foreach($times as $t){
+				    $sql = "select * from Proj2Appointments where `Time` like '%$date%' and `Time` > '".date('Y-m-d H:i:s')."' and `Time` like '%$t%' and `AdvisorID` like '%$advisor%' and `EnrolledNum` = 0 and `Major` like '%".getMajor()."%' order by `Time` ASC Limit 30";
+				    $rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
+				    $row = mysql_fetch_row($rs);
+				    if($row){
+				        while($row = mysql_fetch_row($rs)){		
+                            if($row[2] == 0){
+								$advName = "Group";
+				            }
+				            else { 
+                                $advName = getAdvisorName($row); 
+                            }
 							$found = 	"<tr><td>". date('l, F d, Y g:i A', strtotime($row[1]))."</td>".
 									"<td>". $advName."</td>". 
 									"<td>". $row[3]. "</td></tr>".
 									array_push($results, $found);
-								}
-							}
-						}
-					}
-				}
-				if(empty($results)){
-					echo "No results found.<br><br>";
-				}
-				else{
-					echo("<table border='1'><th colspan='3'>Appointments Available</th>\n");
-					echo("<tr><td width='60px'>Time:</td><td>Advisor</td><td>Major</td></tr>\n");
+				        }
+				    }
+                }
+            }
+        }
+        if(empty($results)){
+            echo "No results found.<br><br>";
+        }
+        else{
+            echo("<table class='striped'><thead><tr><th>Time</th><th>Advisor</th><th>Major</th></tr></thead>\n");
+            foreach($results as $r) { 
+                echo($r."\n"); 
+            }
+            echo("</table>");
+        }
+    ?>
+    <form action="02StudHome.php" method="link">
+        <a id='done' class="waves-effect waves-light btn-large">Done</a>
+	   <input id='done-invis' style='display:none' type="submit" name="done" value="Done">
+    </form>
+    <p>If the Major category is followed by a blank, then it is open for all majors.</p>	
+</div>
 
-					foreach($results as $r){ echo($r."\n"); }
-
-					echo("</table>");
-				}
-			?>
-			</label>
-        </div>
-		<form action="02StudHome.php" method="link">
-	    <div class="nextButton">
-			<input type="submit" name="done" class="button large go" value="Done">
-	    </div>
-		</form>
-		</div>
-		<div class="bottom">
-		<p>If the Major category is followed by a blank, then it is open for all majors.</p>
-		</div>
-  </body>
-</html>
-
+<script>
+    
+    $('#done').click(function() {
+        $('#done-invis').trigger('click');
+    });
+    
+</script>
 <?php
-
+    include("layoutFooter.php");
 
 // More code reduction by Lupoli - 9/1/15
 // just getting the advisor's name
