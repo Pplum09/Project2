@@ -1,39 +1,36 @@
 <?php
 session_start();
+include("layoutHeader.php");
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Schedule Appointment</title>
-	<link rel='stylesheet' type='text/css' href='css/standard.css'/>
-  </head>
-  <body>
-    <div id="login">
-      <div id="form">
-        <div class="top">
-	<h1>Schedule Appointments</h1>
-	<h2>Select advising type</h2><br>
-	
+<div class='container'>
+    <h1>Schedule Appointments</h1>
+    <h2>Select advising type</h2><br>
+    
+    <a id='individual' class="waves-effect waves-light btn-large">Individual</a>
+    <a id='group' class="waves-effect waves-light btn-large">Group</a>
+    <a id='cancel' class="waves-effect waves-light btn-large">Cancel</a>
 	<form method="post" action="AdminProcessSchedule.php">
-	<div class="nextButton">
-		<input type="submit" name="next" class="button large go" value="Individual">
-		<input type="submit" name="next" class="button large go" value="Group">
-	</div>
-	</form>
+		<div style="display:none">
+            <input id='individual-invis' type="submit" name="next" value="Individual">
+            <input id='group-invis' type="submit" name="next" value="Group">
         </div>
-	</div>
-		</form>
-		<form method="link" action="AdminUI.php">
-		<div class="nextButton">
-		<input type="submit" name="home" class="button large" value="Cancel">
-		</div>
-		</form>
-   	</div>
-	</div>
+    </form>
+    <form method="link" action="AdminUI.php">
+        <input id='cancel-invis' style='display:none' type="submit" name="home" class="button large" value="Cancel">
+    </form>
+</div>
 
-		
-  </body>
-  
-</html>
+<script>
+    $('#individual').click(function() {
+        $('#individual-invis').trigger('click');
+    });
+     $('#group').click(function() {
+        $('#group-invis').trigger('click');
+    });
+     $('#cancel').click(function() {
+        $('#cancel-invis').trigger('click');
+    });
+</script>
+<?php
+include("layoutFooter.php");
+?>
