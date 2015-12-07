@@ -1,6 +1,6 @@
 <?php
 session_start();
-include('GetStudentData.php');
+include('CommonMethods.php');
 ?>
 
 <html lang="en">
@@ -15,7 +15,7 @@ include('GetStudentData.php');
         <div class="top">
 		<h2>Hello 
 		<?php			
-			echo getFirstName() . "<br>";
+			echo $_SESSION["firstN"] . "<br>";
 		?>
         </h2>
 	    <div class="selections">
@@ -24,6 +24,7 @@ include('GetStudentData.php');
 			$debug = false;
 			$COMMON = new Common($debug);
 			
+			$_SESSION["studExist"] = false;
 			$adminCancel = false;
 			$noApp = false;
 			$studid = $_SESSION["studID"];
@@ -33,6 +34,7 @@ include('GetStudentData.php');
 			$row = mysql_fetch_row($rs);
 			
 			if (!empty($row)){
+				$_SESSION["studExist"] = true;
 				if($row[6] == 'C'){
 					$adminCancel = true;
 				}
@@ -41,7 +43,7 @@ include('GetStudentData.php');
 				}
 			}
 
-			if (getStudExist() == false || $adminCancel == true || $noApp == true){
+			if ($_SESSION["studExist"] == false || $adminCancel == true || $noApp == true){
 				if($adminCancel == true){
 					echo "<p style='color:red'>The advisor has cancelled your appointment! Please schedule a new appointment.</p>";
 				}

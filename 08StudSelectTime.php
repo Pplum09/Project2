@@ -1,20 +1,15 @@
 <?php
 session_start();
-include('GetStudentData.php');
+include('CommonMethods.php');
 $debug = false;
-
 $COMMON = new Common($debug);
 
 if(isset($_POST["advisor"])){
-	// Put student's advisor into Proj2Student table
-
-	$tempAdvisor = $_POST["advisor"];
-	$sql = "update `Proj2Students` set `Advisor`= '$tempAdvisor' where `id` = 55";
-	$rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
+	$_SESSION["advisor"] = $_POST["advisor"];
 }
 
-$localAdvisor = getAdvisor();
-$localMaj = getMajor();
+$localAdvisor = $_SESSION["advisor"];
+$localMaj = $_SESSION["major"];
 
 $sql = "select * from Proj2Advisors where `id` = '$localAdvisor'";
 $rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
@@ -43,7 +38,7 @@ $advisorName = $row[1]." ".$row[2];
 
 			$curtime = time();
 
-			if (getAdvisor() != "Group")  // for individual conferences only
+			if ($_SESSION["advisor"] != "Group")  // for individual conferences only
 			{ 
 				$sql = "select * from Proj2Appointments where $temp `EnrolledNum` = 0 
 					and (`Major` like '%$localMaj%' or `Major` = '') and `Time` > '".date('Y-m-d H:i:s')."' and `AdvisorID` = ".$_POST['advisor']." 

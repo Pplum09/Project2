@@ -1,6 +1,6 @@
 <?php
 session_start();
-include('GetStudentData.php');
+include('CommonMethods.php');
 
 $debug = false;
 $COMMON = new Common($debug);
