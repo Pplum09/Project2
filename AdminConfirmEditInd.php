@@ -1,26 +1,9 @@
 <?php
 session_start();
+include("layoutHeader.php");
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Edit Individual Appointment</title>
-    <script type="text/javascript">
-    function saveValue(target){
-	var stepVal = document.getElementById(target).value;
-	alert("Value: " + stepVal);
-    }
-    </script>
-	<link rel='stylesheet' type='text/css' href='css/standard.css'/>  
-  </head>
-  <body>
-    <div id="login">
-      <div id="form">
-        <div class="top">
-          <h1>Removed Appointment</h1><br>
-		  <div class="field">
+<div class='container'>
+          <h3>Removed Appointment</h3>
           <?php
             $debug = false;
             include('CommonMethods.php');
@@ -72,20 +55,21 @@ session_start();
 			?>
 			<br><br>
 			<form method="link" action="AdminUI.php">
-				<input type="submit" name="home" class="button large go" value="Return to Home">
+                <a id='home' class="waves-effect waves-light btn-large">Home</a>
+				<input id='home-invis' style='display:none' type="submit" name="home" class="button large go" value="Return to Home">
 			</form>
-		</div>
-    </div>    
-	</div>
-	<div class="bottom">
 		<?php
 		if($row[4]){
               echo "<p style='color:red'>$std has been notified of the cancellation.</p>";
         }
 		?>
-	</div>
-	</div>
 	</form>
-  </body>
-  
-</html>
+</div>
+<script>
+    $('#home').click(function() {
+        $('#home-invis').trigger('click');
+    });
+</script>
+<?php
+    include("layoutFooter.php");
+?>

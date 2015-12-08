@@ -3,27 +3,10 @@ session_start();
 $debug = false;
 include('CommonMethods.php');
 $COMMON = new Common($debug);
+include("layoutHeader.php");
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Edit Group Appointment</title>
-    <script type="text/javascript">
-    function saveValue(target){
-	var stepVal = document.getElementById(target).value;
-	alert("Value: " + stepVal);
-    }
-    </script>
-	<link rel='stylesheet' type='text/css' href='css/standard.css'/>
-  </head>
-  <body>
-    <div id="login">
-      <div id="form">
-        <div class="top">
-		<div class="field">
-        <?php
+<div class='container'>
+<?php
 	// Rather than using session variables, check for appointments that either need to be edited or deleted
 
 	$sql = "SELECT * FROM `Proj2Appointments` WHERE `Alter` = 'Edit' OR `Alter` = 'Delete'";
@@ -97,8 +80,8 @@ $COMMON = new Common($debug);
         	$rs = $COMMON->executeQuery($sql, "Advising Appointments");
 		$row = mysql_fetch_row($rs);
 
-            echo("<h1>Changed Appointment</h1><br>");
-			echo("<h2>Previous Appointment:</h2>");
+            echo("<h3>Changed Appointment</h3><br>");
+			echo("<h4>Previous Appointment:</h4>");
             echo("Time: ". date('l, F d, Y g:i A', strtotime($row[1])). "<br>");
             echo("Majors included: ");
             if($row[3]){
@@ -109,7 +92,7 @@ $COMMON = new Common($debug);
             }
             echo("Number of students enrolled: $row[5]<br>");
             echo("Student limit: $row[6]");
-            echo("<h2>Updated Appointment:</h2>");
+            echo("<h4>Updated Appointment:</h4>");
             $limit = $_POST["stepper"];
             echo("<b>Time: ". date('l, F d, Y g:i A', strtotime($row[1])). "</b><br>");
             echo("<b>Majors included: ");
@@ -128,14 +111,18 @@ $COMMON = new Common($debug);
 
             echo("<br><br>");
             echo("<form method=\"link\" action=\"AdminUI.php\">");
-            echo("<input type=\"submit\" name=\"next\" class=\"button large go\" value=\"Return to Home\">");
+            echo "<a id='cancel' class='waves-effect waves-light btn-large'>Home</a>";
+            echo("<input id='cancel-invis' style='display:none' type=\"submit\" name=\"next\" class=\"button large go\" value=\"Return to Home\">");
             echo("</form>");
           }
         ?>
-	</div>
-	</div>
-	</div>
 	</form>
-  </body>
-  
-</html>
+  </div>
+<script>
+     $('#cancel').click(function() {
+        $('#cancel-invis').trigger('click');
+    });
+</script>
+<?php
+    include('layoutFooter.php');
+?>

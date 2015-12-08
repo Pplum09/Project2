@@ -3,26 +3,10 @@
   include('GetAdvisorData.php');
   $debug = false;
   $COMMON = new Common($debug);
+include("layoutHeader.php");
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Create New Admin</title>
-    <script type="text/javascript">
-    function saveValue(target){
-	var stepVal = document.getElementById(target).value;
-	alert("Value: " + stepVal);
-    }
-    </script>
-    <link rel="stylesheet" type="text/css" href="css/standard.css">
-  </head>
-  <body>
-    <div id="login">
-      <div id="form">
-        <div class="top">
-		<h2>New Advisor has been created:</h2>
+<div class='container'>
+		<h4>New Advisor has been created:</h4>
 
 		<?php
 			// Get added advisor's data without overwriting $_SESSION["userID"]
@@ -59,12 +43,15 @@
       }
 		?>
 		<form method="link" action="AdminUI.php">
-			<input type="submit" name="next" class="button large go" value="Return to Home">
+			<a id='home' class="waves-effect waves-light btn-large">Home</a>
+            <input id='home-invis' style='display:none' type="submit" name="next" value="Return to Home">
 		</form>
-	</div>
-	</div>
-	</div>
-	</form>
-  </body>
-  
-</html>
+</div>
+<script>
+    $('#home').click(function() {
+        $('#home-invis').trigger('click');
+    });
+</script>
+<?php
+include("layoutFooter.php");
+?>

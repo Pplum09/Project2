@@ -1,27 +1,9 @@
 <?php
 session_start();
+include("layoutHeader.php");
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Edit Individual Appointment</title>
-    <script type="text/javascript">
-    function saveValue(target){
-	var stepVal = document.getElementById(target).value;
-	alert("Value: " + stepVal);
-    }
-    </script>
-	<link rel='stylesheet' type='text/css' href='css/standard.css'/>
-  </head> 
-  <body>
-    <div id="login">
-      <div id="form">
-        <div class="top">
-          <h2>Select which appointment you would like to change: </h2>
-		  <div class="field">
-		  
+<div class="container">
+<h4>Select which appointment you would like to delete: </h4>
           <?php
             $debug = false;
             include('CommonMethods.php');
@@ -32,15 +14,13 @@ session_start();
             $row = mysql_fetch_array($rs, MYSQL_NUM); 
 			//first item in row
             if($row){
-              echo("<form action=\"AdminConfirmEditInd.php\" method=\"post\" name=\"Confirm\">");
-              
+                echo("<form action=\"AdminConfirmEditInd.php\" method=\"post\" name=\"Confirm\">");
+                echo("<table class='striped'>");
+                echo("<thead><th>Time</th><th>Majors</th><th>Enrolled</th></thead>\n");
 
-	echo("<table border='1px'>\n<tr>");
-	echo("<tr><td width='320px'>Time</td><td>Majors</td><td>Enrolled</td></tr>\n");
-
-              $secsql = "SELECT `FirstName`, `LastName` FROM `Proj2Advisors` WHERE `id` = '$row[2]'";
-              $secrs = $COMMON->executeQuery($secsql, "Advising Appointments");
-              $secrow = mysql_fetch_row($secrs);
+                $secsql = "SELECT `FirstName`, `LastName` FROM `Proj2Advisors` WHERE `id` = '$row[2]'";
+                $secrs = $COMMON->executeQuery($secsql, "Advising Appointments");
+                $secrow = mysql_fetch_row($secrs);
 
               if($row[4]){
                 $trdsql = "SELECT `FirstName`, `LastName` FROM `Proj2Students` WHERE `StudentID` = '$row[4]'";
@@ -48,9 +28,9 @@ session_start();
                 $trdrow = mysql_fetch_row($trdrs);
               }
 
-              echo("<tr><td><label for='$row[0]'><input type=\"radio\" id='$row[0]' name=\"IndApp\" 
-                required value=\"row[]=$row[1]&row[]=$secrow[0]&row[]=$secrow[1]&row[]=$row[3]&row[]=$row[4]\">");
-              echo(date('l, F d, Y g:i A', strtotime($row[1])). "</label></td>");
+              echo("<tr><td><input class='with-gap' type=\"radio\" id='$row[0]' name=\"IndApp\" 
+                required value=\"row[]=$row[1]&row[]=$secrow[0]&row[]=$secrow[1]&row[]=$row[3]&row[]=$row[4]\"><label for='$row[0]'></label>");
+              echo(date('l, F d, Y g:i A', strtotime($row[1])). "</td>");
               if($row[3]){
                 echo("<td>$row[3]</td>"); 
               }
@@ -67,6 +47,7 @@ session_start();
 			  echo("</tr>\n");
 
               
+                // WHY WERE THEY SPLIT UP LIKE THIS?
 			  //rest of items in row
               while ($row = mysql_fetch_array($rs, MYSQL_NUM)) {
                 $secsql = "SELECT `FirstName`, `LastName` FROM `Proj2Advisors` WHERE `id` = '$row[2]'";
@@ -79,9 +60,9 @@ session_start();
                   $trdrow = mysql_fetch_row($trdrs);
                 }
 
-                echo("<tr><td><label for='$row[0]'><input type=\"radio\" id='$row[0]' name=\"IndApp\" 
-                  required value=\"row[]=$row[1]&row[]=$secrow[0]&row[]=$secrow[1]&row[]=$row[3]&row[]=$row[4]\">");
-                echo(date('l, F d, Y g:i A', strtotime($row[1])). "</label></td>");
+                echo("<tr><td><input class='with-gap' type=\"radio\" id='$row[0]' name=\"IndApp\" 
+                  required value=\"row[]=$row[1]&row[]=$secrow[0]&row[]=$secrow[1]&row[]=$row[3]&row[]=$row[4]\"><label for='$row[0]'></label>");
+                echo(date('l, F d, Y g:i A', strtotime($row[1])). "</td>");
                 if($row[3]){
                   echo("<td>$row[3]</td>"); 
                 }
@@ -105,11 +86,14 @@ session_start();
               echo("</table>");
 
               echo("<div class=\"nextButton\">");
-              echo("<input type=\"submit\" name=\"next\" class=\"button large go\" value=\"Delete Appointment\">");
+                echo "<a id='delete' class='waves-effect waves-light btn-large'>Delete Appointment</a>&nbsp;&nbsp;";
+                  echo "<a id='cancel' class='waves-effect waves-light btn-large'>Cancel</a>";
+                echo("<input id='delete-invis' style='display:none' type=\"submit\" name=\"next\" class=\"button large go\" value=\"Delete Appointment\">");
               echo("</div>");
 			  echo("</form>");
 			  echo("<form method=\"link\" action=\"AdminUI.php\">");
-              echo("<input type=\"submit\" name=\"next\" class=\"button large\" value=\"Cancel\">");
+              
+              echo("<input id='cancel-invis' style='display:none' type=\"submit\" name=\"next\" value=\"Cancel\">");
               echo("</form>");
             }
             else{
@@ -117,22 +101,22 @@ session_start();
               echo("<br><br>");
 			  echo("</td</tr>");
               echo("<form method=\"link\" action=\"AdminUI.php\">");
-		echo("<div class=\"nextButton\">");
-              echo("<input type=\"submit\" name=\"next\" class=\"button large go\" value=\"Return to Home\">");
-		echo("</div>");
+                echo "<a id='cancel' class='waves-effect waves-light btn-large'>Return to Home</a>";
+              echo("<input id='cancel-invis' style='display:none' type=\"submit\" name=\"next\" class=\"button large go\" value=\"Return to Home\">");
               echo("</form>");
             }
           ?>
-		  
-	</div>
-	</div>
-	<div class="bottom">
-		<p style='color:red'>Please note that individual appointments can only be removed from schedule.</p>
-	</div>
-	</div>
-	<?php include('./workOrder/workButton.php'); ?>
-
-	</div>
-  </body>
-  
-</html>
+</div>		  
+<script>
+    $('#delete').click(function() {
+        $('#delete-invis').trigger('click');
+    });
+    
+    $('#cancel').click(function() {
+        $('#cancel-invis').trigger('click');
+    });
+</script>
+<?php 
+include('./workOrder/workButton.php'); 
+include("layoutFooter.php");
+?>

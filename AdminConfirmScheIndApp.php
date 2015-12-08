@@ -3,20 +3,13 @@ session_start();
 $debug = false;
 include('GetAdvisorData.php');
 $COMMON = new Common($debug);
+include("layoutHeader.php");
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-	<link rel='stylesheet' type='text/css' href='css/standard.css'/>
-  </head>
-  <body>
-    <div id="login">
-      <div id="form">
-        <div class="top">
-	<div class="field">
-		<h2>Appointments Created</h2><br>
-		<?php
+<br>
+<div class="container">
+    <h4>Appointments Created</h4>
+    <?php
 			$date = $_POST["Date"];
 			$times = $_POST["time"];
 			$majors = $_POST["major"];
@@ -106,20 +99,19 @@ $COMMON = new Common($debug);
 				echo "<br><br>";
 			}
 		?>
-		<br>
+    <br>
 		<form method="link" action="AdminUI.php">
-			<div class="nextButton">
-			<input type="submit" name="next" class="button large go" value="Return to Home">
-			</div>
+			<a id='home' class="waves-effect waves-light btn-large">Home</a>
+			<input id='home-invis' style='display:none' type="submit" name="next" class="button large go" value="Return to Home">
 		</form>
-	</div>
-	</div>
-	<div class="bottom">
-		<p><span style="color:red">!!</span> indicates that this appointment already exists. A repeat appointment was not made.</p>
-	</div>
-	</div>
-	</div>
-	</form>
-  </body>
-  
-</html>
+    <p><span style="color:red">!!</span> indicates that this appointment already exists. A repeat appointment was not made.</p>
+</div>
+
+<script>
+     $('#home').click(function() {
+        $('#home-invis').trigger('click');
+    });
+</script>
+<?php
+    include("layoutFooter.php");
+?>

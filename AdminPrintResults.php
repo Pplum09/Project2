@@ -1,76 +1,40 @@
 <?php
 session_start();
 $debug = false;
-?>
+include("layoutHeader.php");
 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Print Schedule</title>
-    <script type="text/javascript">
-    function saveValue(target){
-	var stepVal = document.getElementById(target).value;
-	alert("Value: " + stepVal);
-    }
-    </script>
-	<link rel='stylesheet' type='text/css' href='css/standard.css'/>
-  </head>
-  <body>
-    <div id="login">
-      <div id="form">
-        <div class="top">
-
-<?php
-
-	$date = $_POST["date"];
-	$type = $_POST["type"];
+$date = $_POST["date"];
+$type = $_POST["type"];
 			
-	include('GetAdvisorData.php');
-	$COMMON = new Common($debug);
+include('GetAdvisorData.php');
+$COMMON = new Common($debug);
+$User = getUsername();
 
-
-      $User = getUsername();
-
-      $sql = "SELECT `id`, `firstName`, `lastName` FROM `Proj2Advisors` WHERE `Username` = '$User'";
-      $rs = $COMMON->executeQuery($sql, "Advising Appointments");
-      $row = mysql_fetch_row($rs);
-      $id = $row[0];
-      $FirstName = $row[1];
-      $LastName = $row[2];
-		
-			echo("<h2>Schedule for $FirstName $LastName<br>$date</h2>");
-      $date = date('Y-m-d', strtotime($date));
-	
-	if($_POST["type"] == 'Both')
-	{
-		displayGroup($id, $date);
-		displayIndividual($id, $date);
-	}
-	elseif($_POST["type"] == 'Individual') { displayIndividual($id, $date); }
-	elseif($_POST["type"] == 'Group') { displayGroup($id, $date); }
-	else { echo("Selection invalid"); }
-
+$sql = "SELECT `id`, `firstName`, `lastName` FROM `Proj2Advisors` WHERE `Username` = '$User'";
+$rs = $COMMON->executeQuery($sql, "Advising Appointments");
+$row = mysql_fetch_row($rs);
+$id = $row[0];
+$FirstName = $row[1];
+$LastName = $row[2];
+echo "<div class='container'><br><br>";		
+echo("<h4>Schedule for $FirstName $LastName<br>$date</h4>");
+$date = date('Y-m-d', strtotime($date));
+if($_POST["type"] == 'Both') {
+    displayGroup($id, $date);
+    displayIndividual($id, $date);
+}
+elseif($_POST["type"] == 'Individual') { displayIndividual($id, $date); }
+elseif($_POST["type"] == 'Group') { displayGroup($id, $date); }
+else { echo("Selection invalid"); }
 ?>
 	<form method="link" action="AdminUI.php">
-	<div class="nextButton">
-	<input type="submit" name="next" class="button large go" value="Return to Home">
-	<input type="button" name="print" class="button large go" value="Print" onClick="window.print()">
-	</div>
+        <input type="submit" name="next" class="button large go" value="Return to Home">
+        <input type="button" name="print" class="button large go" value="Print" onClick="window.print()">
 	</form>
-
-	</div>
-	</div>
-	<?php include('./workOrder/workButton.php'); ?>
-	</div>
-
-  </body>
-  
-</html>
-
-
+</div>
 <?php
-
+include('./workOrder/workButton.php');
+include("layoutFooter.php");
 function displayGroup($id, $date)
 {
 	global $debug; global $COMMON;
@@ -91,7 +55,6 @@ function displayGroup($id, $date)
 	if($debug) { echo("matches was $matches"); }
 	if($matches == 0) { return; }
 
-	echo("<h3>Group Appointments:</h3>");
 	echo("<table border='1'><th colspan='4'>Group Appointments</th>\n");
 	echo("<tr><td width='60px'>Time:</td><td>Majors Included:</td><td>students enrolled</td><td>Number of seats</td></tr>\n");
 
@@ -117,11 +80,7 @@ function displayIndividual($id, $date)
 	$matches = mysql_num_rows($rs); // see how many rows were collected by the query
 	if($debug) { echo("matches was $matches"); }
 	if($matches == 0) { return; }
-
-	echo("<h3>Individual Appointments:</h3>");
-	echo("<table border='1'><th colspan='4'>Individual Appointments</th>\n");
-	echo("<tr><td width='60px'>Time:</td><td>Majors Included:</td><td>Student's name</td><td>Student ID</td></tr>\n");
-
+	echo("<table class='striped'><thead><th>Individual Appointments</th></thead><thead><tr><th>Time</th><th>Majors Included</th><th>Student Name</th><th>Student ID</th></tr></thead>\n");
         while ($row = mysql_fetch_array($rs, MYSQL_NUM)) 
 	{
 		echo("<tr>");

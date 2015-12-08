@@ -1,26 +1,9 @@
 <?php
 session_start();
+include("layoutHeader.php");
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Edit Group Appointment</title>
-    <script type="text/javascript">
-    function saveValue(target){
-      var stepVal = document.getElementById(target).value;
-      alert("Value: " + stepVal);
-    }
-    </script>
-	<link rel='stylesheet' type='text/css' href='css/standard.css'/>
-  </head> 
-  <body>
-    <div id="login">
-      <div id="form">
-        <div class="top">
-          <h1>Edit Group Appointment</h1>
-		  <div class="field">
+<div class='container'>  
+    <h3>Edit Group Appointment</h3>
           <?php
             $debug = false;
             include('CommonMethods.php');
@@ -47,21 +30,19 @@ session_start();
 
             echo("<br><br>");
 
-            echo("<div class=\"nextButton\">");
-            echo("<input type=\"submit\" name=\"next\" class=\"button large go\" value=\"Submit\">");
-            echo("</div>");
-            echo("</div>");
-            echo("<div class=\"bottom\">");
+            echo "<a id='submit' class='waves-effect waves-light btn-large'>Submit</a>";
+            echo("<input id='submit-invis' style='display:none' type=\"submit\" name=\"next\" class=\"button large go\" value=\"Submit\">");
             if($row[5] > 0){
               echo "<p style='color:red'>Note: There are currently $row[5] students enrolled in this appointment. <br>
                     The student limit cannot be changed to be under this amount.</p>";
             }
-            echo("</div>");
           ?>
-		  </div>
-  </div>
-  </div>
-  </form>
-  </body>
-  
-</html>
+</div>
+<script>
+     $('#submit').click(function() {
+        $('#submit-invis').trigger('click');
+    });
+</script>
+<?php
+    include("layoutFooter.php");
+?>

@@ -1,15 +1,10 @@
 <?php
 session_start();
 include('GetAdvisorData.php');
+include('layoutHeader.php');
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Create New Admin</title>
-	<link rel='stylesheet' type='text/css' href='css/standard.css'/>
-
+<div class='container'>
      <script type="text/javascript">
     //   window.onload = function () {
     //       document.getElementById("PassW").onchange = validatePassword;
@@ -25,12 +20,7 @@ include('GetAdvisorData.php');
     //     //empty string means no validation error
     //   }
     // </script>
-  </head>
-   <body>
-    <div id="login">
-      <div id="form">
-        <div class="top">
-		<h2>Create New Advisor Account</h2>
+		<h3>Create New Advisor Account</h3>
 		<?php
       if(getConfirmPassword() == "false"){
         echo "<h3 style='color:red'>Passwords do not match!!</h3>";
@@ -44,10 +34,10 @@ include('GetAdvisorData.php');
       }
     ?>
 		<form action="AdminProcessCreateNew.php" method="post" name="Create">
-		<div class="field">
+		
 	      		<label for="firstN">First Name</label>
 	      		<input id="firstN" size="20" maxlength="50" type="text" name="firstN" required autofocus>
-	    	</div>
+	    	
 
 	    	<div class="field">
 	     		<label for="lastN">Last Name</label>
@@ -69,17 +59,23 @@ include('GetAdvisorData.php');
 	      		<input id="ConfP" size="20" maxlength="50" type="password" name="ConfP" required>
 	   	</div>	
 		<br>
-
-		<div class="nextButton">
-			<input type="submit" name="next" class="button large go" value="Submit">
-	    </div>
+            <a id='submit' class="waves-effect waves-light btn-large">Submit</a>
+            <a id='cancel' class="waves-effect waves-light btn-large">Cancel</a>
+            <input id='submit-invis' style='display:none' type="submit" name="next" class="button large go" value="Submit">
 		</form>
 		<form method="link" action="AdminUI.php">
-			<input type="submit" name="home" class="button large" value="Cancel">
+			<input id='cancel-invis' style='display:none' type="submit" name="home" class="button large" value="Cancel">
 		</form>
 
-	</div>
-	</div>
-	</div>
-  </body>
-</html>
+</div>
+<script>
+    $('#submit').click(function() {
+        $('#submit-invis').trigger('click');
+    });
+    $('#cancel').click(function() {
+        $('#cancel-invis').trigger('click');
+    });
+</script>
+<?php
+include("layoutFooter.php");
+?>

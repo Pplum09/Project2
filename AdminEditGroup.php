@@ -1,28 +1,10 @@
 <?php
 session_start();
+include("layoutHeader.php");
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Edit Group Appointment</title>
-    <script type="text/javascript">
-    function saveValue(target){
-  var stepVal = document.getElementById(target).value;
-  alert("Value: " + stepVal);
-    }
-    </script>
-	<link rel='stylesheet' type='text/css' href='css/standard.css'/>
-  </head> 
-  <body>
-    <div id="login">
-      <div id="form">
-        <div class="top">
-          <h1>Edit Group Appointment</h1>
-		  <h2>Select an appointment to change</h2>
-		  <div class="field">
-          <?php
+<div class='container'>
+          <h4>Edit Group Appointment</h4>
+		  <?php
             $debug = false;
             include('CommonMethods.php');
             $COMMON = new Common($debug);
@@ -33,14 +15,14 @@ session_start();
 			//first item in row
             if($row){
               echo("<form action=\"AdminProcessEditGroup.php\" method=\"post\" name=\"Confirm\">");
-	echo("<table border='1px'>\n<tr>");
-	echo("<tr><td width='320px'>Time</td><td>Majors</td><td>Seats Enrolled</td><td>Total Seats</td></tr>\n");
+	echo("<table class='striped'>\n<thead>");
+	echo("<th>Time</th><th>Majors</th><tdhSeats Enrolled</th><th>Total Seats</th></thead>\n");
 
 		// Display first appointment info for possible selection
 
-              echo("<td><label for='$row[0]'><input type=\"radio\" id='$row[0]' name=\"GroupApp\" 
-                required value=\"row[]=$row[1]&row[]=$row[3]&row[]=$row[5]&row[]=$row[6]\">");
-              echo(date('l, F d, Y g:i A', strtotime($row[1])). "</label></td>");
+              echo("<td><input class='with-gap' type=\"radio\" id='$row[0]' name=\"GroupApp\" 
+                required value=\"row[]=$row[1]&row[]=$row[3]&row[]=$row[5]&row[]=$row[6]\"><label for='$row[0]'></label>");
+              echo(date('l, F d, Y g:i A', strtotime($row[1])). "</td>");
               if($row[3]){
                 echo("<td>".$row[3]."</td>"); 
               }
@@ -54,9 +36,9 @@ session_start();
 			//rest of row (other appointments)
               echo("</td></tr>\n");
               while ($row = mysql_fetch_array($rs, MYSQL_NUM)) {
-                echo("<tr><td><label for='$row[0]'><input type=\"radio\" id='$row[0]' name=\"GroupApp\" 
-                  required value=\"row[]=$row[1]&row[]=$row[3]&row[]=$row[5]&row[]=$row[6]\">");
-                echo(date('l, F d, Y g:i A', strtotime($row[1])). "</label></td>");
+                echo("<tr><td><input class='with-gap' type=\"radio\" id='$row[0]' name=\"GroupApp\" 
+                  required value=\"row[]=$row[1]&row[]=$row[3]&row[]=$row[5]&row[]=$row[6]\"><label for='$row[0]'></label>");
+                echo(date('l, F d, Y g:i A', strtotime($row[1])). "</td>");
                 if($row[3]){
                   echo("<td>".$row[3]."</td>"); 
                 }
@@ -71,29 +53,39 @@ session_start();
               }
 
 		echo("</table>");
-
-              echo("<div class=\"nextButton\">");
-              echo("<input type=\"submit\" name=\"next\" class=\"button large go\" value=\"Delete Appointment\">");
-              echo("<input style=\"margin-left: 10px\" type=\"submit\" name=\"next\" class=\"button large go\" value=\"Edit Appointment\">");
-              echo("</div>");
+                echo "<br><br><a id='delete' class='waves-effect waves-light btn-large'>Delete Appointment</a>&nbsp;&nbsp;";
+                echo "<a id='edit' class='waves-effect waves-light btn-large'>Edit Appointment</a>&nbsp;";
+                echo "<a id='cancel' class='waves-effect waves-light btn-large'>Cancel</a>&nbsp;";
+                echo("<input id='delete-invis' style='display:none' type=\"submit\" name=\"next\" value=\"Delete Appointment\">");
+              echo("<input id='edit-invis' style='display:none' type=\"submit\" name=\"next\" value=\"Edit Appointment\">");
 			  echo("</form>");
 			  echo("<form method=\"link\" action=\"AdminUI.php\">");
-              echo("<input type=\"submit\" name=\"next\" class=\"button large\" value=\"Cancel\">");
+              echo("<input id='cancel-invis' style='display:none' type=\"submit\" name=\"next\" class=\"button large\" value=\"Cancel\">");
               echo("</form>");
             }
             else{
               echo("<br><b>There are currently no group appointments scheduled at the current moment.</b>");
               echo("<br><br>");
               echo("<form method=\"link\" action=\"AdminUI.php\">");
-              echo("<input type=\"submit\" name=\"next\" class=\"button large go\" value=\"Return to Home\">");
+                 echo "<a id='cancel' class='waves-effect waves-light btn-large'>Cancel</a>";
+                echo("<input id='cancel-invis' style='display:none' type=\"submit\" name=\"next\" value=\"Return to Home\">");
               echo("</form>");
             }
           ?>
-  </div>
-  </div>
-  </div>
-	<?php include('./workOrder/workButton.php'); ?>
-  </div>
-  </body>
+</div>
+<script>
+    $('#delete').click(function() {
+        $('#delete-invis').trigger('click');
+    });
+    $('#edit').click(function() {
+        $('#edit-invis').trigger('click');
+    });
+    $('#cancel').click(function() {
+        $('#cancel-invis').trigger('click');
+    });
+</script>
+<?php 
+include('./workOrder/workButton.php');
+include('layoutFooter.php');
+?>
   
-</html>

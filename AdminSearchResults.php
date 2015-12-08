@@ -3,27 +3,10 @@ session_start();
 $debug = false;
 include('CommonMethods.php');
 $COMMON = new Common($debug); 
+include('layoutHeader.php');
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Search Appointments</title>
-    <script type="text/javascript">
-    function saveValue(target){
-	var stepVal = document.getElementById(target).value;
-	alert("Value: " + stepVal);
-    }
-    </script>
-	<link rel='stylesheet' type='text/css' href='css/standard.css'/>
-  </head>
-  <body>
-    <div id="login">
-      <div id="form">
-        <div class="top">
-			<h1>Search results</h1>
-			<div class="field">
+<div class='container'>
+			<h3>Search results</h3>
 			<p>Showing results for: </p>
 			<?php
 				$date = $_POST["date"];
@@ -222,18 +205,18 @@ $COMMON = new Common($debug);
 				?>
 				</label>
 		<form method="link" action="AdminUI.php" name="home">
-			<input type="submit" name="next" class="button large go" value="Return to Home">
+            <a id='home' class="waves-effect waves-light btn-large">Return Home</a>
+			<input id='home-invis' style='display:none' type="submit" name="next" value="Return to Home">
 		</form>
-	</div>
-	</div>
-	</div>
-	<div class="bottom">
 		<p>If the Major category is followed by a blank, then it is open for all majors.</p>
-	</div>
-	<?php include('./workOrder/workButton.php'); ?>
-
-	</div>
 	</form>
-  </body>
-  
-</html>
+</div>
+<script>
+     $('#home').click(function() {
+        $('#home-invis').trigger('click');
+    });
+</script>
+<?php
+include('./workOrder/workButton.php');
+include("layoutFooter.php");
+?>
