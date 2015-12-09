@@ -20,5 +20,7 @@ elseif($_POST["selection"] == 'Search'){
 elseif($_POST["selection"] == 'Edit'){
 	header('Location: 06StudEditInfo.php');
 }
-
+elseif($_POST["selection"] == 'LogOut') {
+    header('Location: Logout.php');
+}
 ?>

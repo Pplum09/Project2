@@ -7,7 +7,7 @@ $email = $_POST["email"];
 $major = $_POST["major"];
 // registration validation added
 $debug = false;
-include('../CommonMethods.php');
+include('CommonMethods.php');
 $COMMON = new Common($debug);
 
 // get names from post data

@@ -1,24 +1,25 @@
 <?php
 session_start();
-$debug = false;
-include('GetStudentData.php');
+$debug = FALSE;
+include('CommonMethods.php');
 $COMMON = new Common($debug);
 
 if($_POST["finish"] == 'Cancel'){
 	$_SESSION["status"] = "none";
 }
 else{
-	$firstn = getFirstName();
-	$lastn = getLastName();
+	$firstn = $_SESSION["firstN"];
+	$lastn = $_SESSION["lastN"];
 	$studid = $_SESSION["studID"];
-	$major = getMajor();
-	$email = getEmail();
-	$advisor = getAdvisor();
-
-	//if(debug) { echo("Advisor -> $advisor<br>\n"); }
+	$major = $_SESSION["major"];
+	$email = $_SESSION["email"];
+	$advisor = $_SESSION["advisor"];
+	if ($debug) { 
+        echo "Advisor ->", $advisor, "<br>\n"; 
+    }
 
 	$apptime = $_SESSION["appTime"];
-	if(getStudExist() == false){
+	if($_SESSION["studExist"] == false){
 		$sql = "insert into Proj2Students (`FirstName`,`LastName`,`StudentID`,`Email`,`Major`) values ('$firstn','$lastn','$studid','$email','$major')";
 		$rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
 	}
@@ -72,7 +73,7 @@ else{
 		$rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
 		
 		//schedule new app
-		if(getAdvisor() == 'Group'){
+		if($_SESSION["advisor"] == 'Group'){
 			$sql = "select * from Proj2Appointments where `Time` = '$apptime' and `AdvisorID` = 0";
 			$rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
 			$row = mysql_fetch_row($rs);
@@ -123,7 +124,4 @@ function isStillAvailable($apptime, $advisor)
 	}
 
 }
-
 ?>
-
-

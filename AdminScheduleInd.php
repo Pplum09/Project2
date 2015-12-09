@@ -6,7 +6,7 @@ include("layoutHeader.php");
     <h3>Schedule Individual Appointments</h3>
         <form action="AdminConfirmScheIndApp.php" method="post" name="Confirm">
             <div id='calendar'>
-                <a>Date<input id='date'type="date" name='date'class="datepicker"></a>
+                <a>Date<input id='date' type="date" name='Date' class="datepicker"></a>
             </div>
             
             <div id='times'>
@@ -46,13 +46,13 @@ include("layoutHeader.php");
             </div>
             <div>
                 <h5>Majors</h5>
-                <input id='box17' class="filled-in" type="checkbox" name='major[]' value='Computer Engineering' checked>
+                <input id='box17' class="filled-in" type="checkbox" name='major[]' value='CMPE' checked>
                 <label for="box17">Computer Engineering</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <input id='box18' class="filled-in" type="checkbox" name='major[]' value='Computer Science' checked>
+                <input id='box18' class="filled-in" type="checkbox" name='major[]' value='CMSC' checked>
                 <label for="box18">Computer Science</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <input id='box19' class="filled-in" type="checkbox" name='major[]' value='Mechanical Engineering' checked>
+                <input id='box19' class="filled-in" type="checkbox" name='major[]' value='MENG' checked>
                 <label for="box19">Mechanical Engineering</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <input id='box20' class="filled-in" type="checkbox" name='major[]' value='Chemical Engineering' checked>
+                <input id='box20' class="filled-in" type="checkbox" name='major[]' value='CENG' checked>
                 <label for="box20">Chemical Engineering</label>
             </div>
             <div>

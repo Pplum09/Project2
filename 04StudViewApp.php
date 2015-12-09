@@ -7,7 +7,7 @@ $COMMON = new Common($debug);
 $studID = $_SESSION["studID"];
 include("layoutHeader.php");
 ?>
-<div class="center">
+<div class="container">
     <h1>View Appointment</h1>
         <?php
             $sql = "select * from Proj2Appointments where `EnrolledID` like '%$studID%'";
@@ -27,10 +27,8 @@ include("layoutHeader.php");
 					$advisorName = $row2[1] . " " . $row2[2];
 				}
 				else{$advisorName = "Group";}
-			
-				echo "<label for='info'>";
 				echo "Advisor: ", $advisorName, "<br>";
-				echo "Appointment: ", date('l, F d, Y g:i A', $datephp), "</label>";
+				echo "Appointment: ", date('l, F d, Y g:i A', $datephp), "<br><br>";
 			}
 
 			else { // something is up, and there DB table needs to be fixed

@@ -34,6 +34,28 @@ class Common
 		return $rs;
 	}			
 
+    // ADDED FOR PROJ2 BY IZZY
+    function convertMajor($major) {
+        if ($major == "Computer Engineering") {
+            return "CMPE";
+        }
+        
+        elseif ($major == "Computer Science") {
+            return "CMSC";
+        }
+        
+        elseif ($major == "Mechanical Engineering") {
+            return "MENG";
+        }
+        
+        elseif ($major == "Chemical Engineering") {
+            return "CENG";   
+        }
+        else {
+            return "ENGR";
+        }
+    }
+       
 } // ends class, NEEDED!!
 
 ?>

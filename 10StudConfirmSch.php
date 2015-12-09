@@ -1,6 +1,7 @@
 <?php
 session_start();
 $_SESSION["appTime"] = $_POST["appTime"]; // radio button selection from previous form
+include("CommonMethods.php");
 include("layoutHeader.php");
 ?>
 <!--NEW CODE-->
@@ -8,14 +9,13 @@ include("layoutHeader.php");
     <form action="StudProcessSch.php" method="post" name="SelectTime">
         <?php
             $debug = false;
-			include('GetStudentData.php');
 			$COMMON = new Common($debug);
 			
-			$firstn = getFirstName();
-			$lastn = getLastName();
+			$firstn = $_SESSION["firstN"];
+			$lastn = $_SESSION["lastN"];
 			$studid = $_SESSION["studID"];
-			$major = getMajor();
-			$email = getEmail();
+			$major = $_SESSION["major"];
+			$email = $_SESSION["email"];
 			
 			if($_SESSION["resch"] == true){
 				$sql = "select * from Proj2Appointments where `EnrolledID` like '%$studid%'";
@@ -34,14 +34,13 @@ include("layoutHeader.php");
                     $oldAdvisorName = "Group";
                 }
 				
-				echo "<h2>Previous Appointment</h2>";
-				echo "<label for='info'>";
-				echo "Advisor: ", $oldAdvisorName, "<br>";
-				echo "Appointment: ", date('l, F d, Y g:i A', $oldDatephp), "</label><br>";
+				echo "<h3>Previous Appointment</h3>";
+				echo "<h4>Advisor: ", $oldAdvisorName, "</h4>";
+				echo "<h5>Appointment: ", date('l, F d, Y g:i A', $oldDatephp), "</h5><br>";
 			}
 			
 			$currentAdvisorName;
-			$currentAdvisorID = getAdvisor();
+			$currentAdvisorID = $_SESSION["advisor"];
 			$currentDatephp = strtotime($_SESSION["appTime"]);
 			if($currentAdvisorID != 0){
 				$sql2 = "select * from Proj2Advisors where `id` = '$currentAdvisorID'";
@@ -57,19 +56,25 @@ include("layoutHeader.php");
 		?>
     	<?php
 			if($_SESSION["resch"] == true) {
-				echo "<input type='submit' name='finish' class='button large go' value='Reschedule'>";
-			}
+				echo "<input id='reschedule-invis' style='display:none' type='submit' name='finish' class='button large go' value='Reschedule'>";
+			     echo "<a id='reschedule' class='waves-effect waves-light btn-large'>Reschedule</a>&nbsp;&nbsp;";
+                    echo "<a id='cancel' class='waves-effect waves-light btn-large'>Cancel</a>";
+                 
+            }
 			else {
                 echo "<input id='submit-invis' style='display:none' type='submit' name='finish' value='Submit'>";
-			    echo "<a id='submit' class='waves-effect waves-light btn-large'>Submit</a>"; 
+			    echo "<a id='submit' class='waves-effect waves-light btn-large'>Submit</a>&nbsp;&nbsp; "; 
+                echo "<a id='cancel' class='waves-effect waves-light btn-large'>Cancel</a>";
             }
 		?>
-        <a id='cancel' class="waves-effect waves-light btn-large">Cancel</a>
         <input id='cancel-invis' style='display:none' type="submit" name="finish" value="Cancel">
 	   </form>
 </div>
 <script>
     
+    $('#reschedule').click(function() {
+        $('#reschedule-invis').trigger('click');
+    });
     $('#submit').click(function() {
         $('#submit-invis').trigger('click');
     });

@@ -1,147 +1,230 @@
 <?php
 session_start();
-//ini_set('display_errors','1');
-//ini_set('display_startup_errors','1');
-//error_reporting (E_ALL);
-
 $debug = false;
-include('GetStudentData.php');
+include("CommonMethods.php");
 $COMMON = new Common($debug);
 include("layoutHeader.php");
 ?>
-<div class='center'>
-    <h1>Search Results</h1>
+<div class='container'>
     <h3>Showing open appointments only</h3>			
-    <p>Showing results for: </p>
-    <?php
-        $date = $_POST["date"];
-        $times = $_POST["time"];
-        $advisor = $_POST["advisor"];
-        $results = array();
-				
-        if($date == '') { 
-            echo "Date: All"; 
-        }
+<?php
+    $date = $_POST["date"];
+    $times = $_POST["time"];
+    $advisor = $_POST["advisor"];
+    $results = array();
 
-        else { 
-            echo "Date: ",$date;
-            $date = date('Y-m-d', strtotime($date));    
-        }
-        echo "<br>";
-        if (empty($times)) { 
-            echo "Time: All"; 
-        }
+    // input validations
+    if ($date != "") {
+        echo "Date: ", $date;
+        $date = date('Y-m-d', strtotime($date));
+    }
+    
+    else {
+        echo "Date: All";   
+    }
+    
+    echo "<br>";
+    
+    if (empty($time)) {
+        echo "Time: All";
+    }
+
+    else {
+        echo "Time: ", $time;
+    }
+
+    echo "<br>";
+
+    if ($advisor == "") {
+        echo "Advisor: All Appointments";
+    }
+
+    elseif($advisor == "I") {
+        echo "Advisor: All Individual Appointments";
+    }
+
+    elseif ($advisor == '0') { 
+        echo "Advisor: All Group Appointments";     
+    }
+    
+    else {
+        $sql = "select * from Proj2Advisors where `id` = '$advisor'";
+        $rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
+        while($row = mysql_fetch_row($rs)) {
+            echo "Advisor: ", $row[1], " ", $row[2];
+        }  
+    }
+?>
+<br><br>
+<?php
+
+    // default sql, remove later
+    $sql = "SELECT * FROM Proj2Appointments LIMIT 30";
+    
+    // if a time was not selected
+    if (empty($times)) {
+        
+        // date is empty
+        if ($date == "") {
+        
+            // advisor options 
+            if ($advisor == "") {
+                $sql = "select * from Proj2Appointments where `Time` > '".date('Y-m-d H:i:s')."' and `EnrolledNum` = 0 order by `Time` ASC Limit 30";
+            }
+
+            elseif($advisor == "I") {
+                $sql = "select * from Proj2Appointments where `Time` > '".date('Y-m-d H:i:s')."' and `EnrolledNum` = 0 and `AdvisorID` != 0 order by `Time` ASC Limit 30";
+            }
+
+            elseif ($advisor == '0') { 
+                $sql = "select * from Proj2Appointments where `Time` > '".date('Y-m-d H:i:s')."' and `EnrolledNum` = 0 and `AdvisorID` = 0 order by `Time` ASC Limit 30";
+            }
+
+            // particular advisor wanted
+            else {
+                $sql = "select * from Proj2Appointments where `Time` > '".date('Y-m-d H:i:s')."' and `EnrolledNum` = 0 and `AdvisorID` = ".$advisor." order by `Time` ASC Limit 30";
+            }     
+        }      
+        
+        // date is given
         else {
-            $i = 0;
-            echo "Time: ";
-            foreach($times as $t) {
-				echo ++$i, ") ", date('g:i A', strtotime($t)), " ";
+
+            // advisor options
+            if ($advisor == "") {
+                $sql = "select * from Proj2Appointments where `Time` > '".date('Y-m-d H:i:s')."' and `Time` like '%".$date."%' and `EnrolledNum` = 0 order by `Time` ASC Limit 30";
+            }
+
+            elseif($advisor == "I") {
+                $sql = "select * from Proj2Appointments where `Time` > '".date('Y-m-d H:i:s')."' and `Time` like '%".$date."%' and `EnrolledNum` = 0 and `AdvisorID` != 0 order by `Time` ASC Limit 30";
+            }
+
+            elseif ($advisor == '0') { 
+                $sql = "select * from Proj2Appointments where `Time` > '".date('Y-m-d H:i:s')."' and `Time` like '%".$date."%' and `EnrolledNum` = 0 and `AdvisorID` = 0 order by `Time` ASC Limit 30";
+            }
+
+            // particular advisor wanted
+            else {
+                $sql = "select * from Proj2Appointments where `Time` > '".date('Y-m-d H:i:s')."' and `Time` like '%".$date."%' and `EnrolledNum` = 0 and `AdvisorID` = ".$advisor." order by `Time` ASC Limit 30";
             }
         }
-        echo "<br>";
-        if ($advisor == '') { 
-            echo "Advisor: All appointments"; 
-        }
-        elseif ($advisor == 'I') { 
-            echo "Advisor: All individual appointments"; 
-        }
-        elseif ($advisor == '0') { 
-            echo "Advisor: All group appointments"; 
-        }
-        else {
-            $sql = "select * from Proj2Advisors where `id` = '$advisor'";
-            $rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
-            while($row = mysql_fetch_row($rs)) {
-				echo "Advisor: ", $row[1], " ", $row[2];
-            }  
-        }
-        ?>
-        <br><br>
-        <?php
-        if(empty($times)) {
-            if($advisor == 'I') {
-				$sql = "select * from Proj2Appointments where `Time` like '%$date%' and `Time` > '".date('Y-m-d H:i:s')."' and `AdvisorID` != 0 and `EnrolledNum` = 0 and `Major` like '%".getMajor()."%' order by `Time` ASC Limit 30";
-				$rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
+        
+        // by this point, all sql should be set for this block, so run query and push into array
+        $rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
+        
+        $counter = 0;
+        while ($row = mysql_fetch_row($rs)) {
+            if($row[2] == 0) {
+                $advName = "Group";
             }
             else {
-                $sql = "select * from Proj2Appointments where `Time` like '%$date%' and `Time` > '".date('Y-m-d H:i:s')."' and `AdvisorID` like '%$advisor%' and `EnrolledNum` = 0 and `Major` like '%".getMajor()."%' order by `Time` ASC Limit 30";
-				$rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
+                $advName = getAdvisorName($row); 
             }
-            $row = mysql_fetch_row($rs);
-            $rsA = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
-            if($row) {	
-                while($row = mysql_fetch_row($rsA)){
-                    if($row[2] == 0) {
-                        $advName = "Group";
-                    }
-                    else { 
-                        $advName = getAdvisorName($row); 
-                    }
-                    $found = "<tr><td>". date('l, F d, Y g:i A', strtotime($row[1]))."</td>".
-                                        "<td>". $advName."</td>". 
-                                        "<td>". $row[3]. "</td></tr>".
-
-                                array_push($results, $found);
+            $found = "<tr><td>".date('l, F d, Y g:i A', strtotime($row[1]))."</td><td>".$advName."</td><td>".$row[3]."</td></tr>";
+            array_push($results, $found);
+            $counter++;
+        }
+        
+        // FOR DEBUG ONLY
+        // echo "total query: ", $counter,"<br>";
+        //echo "query is: ", $sql;
+    }
+    
+    // if time(s) were selected
+    else {
+       
+        foreach($times as $t) {
+            // date is empty
+            if ($date == "") {
+               
+                // advisor options
+                if ($advisor == "") {
+                    $sql = "select * from Proj2Appointments where `Time` like '%".$t."%' and `Time` > '".date('Y-m-d H:i:s')."' and `EnrolledNum` = 0 order by `Time` ASC Limit 30";
                 }
-            }
-        }
-        else {
-            if($advisor == 'I') {
-				foreach($times as $t) {
-				    $sql = "select * from Proj2Appointments where `Time` like '%$date%' and `Time` > '".date('Y-m-d H:i:s')."' and `Time` like '%$t%' and `AdvisorID` != 0 and `EnrolledNum` = 0 and `Major` like '%".getMajor()."%' order by `Time` ASC Limit 30";
-				    $rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
-				    $row = mysql_fetch_row($rs);
-				    $rsA = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
-				    if ($row) {
-				        while ($row = mysql_fetch_row($rsA)) {
-				            if($row[2] == 0) {
-								$advName = "Group";
-				            }
-				            else { 
-                                $advName = getAdvisorName($row); 
-                            }
 
-							$found = 	"<tr><td>". date('l, F d, Y g:i A', strtotime($row[1]))."</td>".
-									"<td>". $advName."</td>". 
-									"<td>". $row[3]. "</td></tr>".
-									array_push($results, $found);
-				        }
-				    }
-				}
-            }
-            else{
-				foreach($times as $t){
-				    $sql = "select * from Proj2Appointments where `Time` like '%$date%' and `Time` > '".date('Y-m-d H:i:s')."' and `Time` like '%$t%' and `AdvisorID` like '%$advisor%' and `EnrolledNum` = 0 and `Major` like '%".getMajor()."%' order by `Time` ASC Limit 30";
-				    $rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
-				    $row = mysql_fetch_row($rs);
-				    if($row){
-				        while($row = mysql_fetch_row($rs)){		
-                            if($row[2] == 0){
-								$advName = "Group";
-				            }
-				            else { 
-                                $advName = getAdvisorName($row); 
-                            }
-							$found = 	"<tr><td>". date('l, F d, Y g:i A', strtotime($row[1]))."</td>".
-									"<td>". $advName."</td>". 
-									"<td>". $row[3]. "</td></tr>".
-									array_push($results, $found);
-				        }
-				    }
+                elseif($advisor == "I") {
+                    $sql = "select * from Proj2Appointments where `Time` like '%".$t."%' and `Time` > '".date('Y-m-d H:i:s')."' and `EnrolledNum` = 0 and `AdvisorID` != 0 order by `Time` ASC Limit 30";
                 }
+
+                elseif ($advisor == '0') { 
+                    $sql = "select * from Proj2Appointments where `Time` like '%".$t."%' and `Time` > '".date('Y-m-d H:i:s')."' and `EnrolledNum` = 0 and `AdvisorID` = 0 order by `Time` ASC Limit 30";
+                }
+
+                // particular advisor wanted
+                else {
+                    $sql = "select * from Proj2Appointments where `Time` like '%".$t."%' and `Time` > '".date('Y-m-d H:i:s')."' and `EnrolledNum` = 0 and `AdvisorID` = ".$advisor." order by `Time` ASC Limit 30";
+                }     
+            }      
+
+            // date is given
+            else {
+            
+                // advisor options
+                if ($advisor == "") {
+                    $sql = "select * from Proj2Appointments where `Time` like '%".$t."%' and `Time` > '".date('Y-m-d H:i:s')."' and `Time` like '%".$date."%' and `EnrolledNum` = 0 order by `Time` ASC Limit 30";
+                }
+
+                elseif($advisor == "I") {
+                    $sql = "select * from Proj2Appointments where `Time` like '%".$t."%' and `Time` > '".date('Y-m-d H:i:s')."' and `Time` like '%".$date."%' and `EnrolledNum` = 0 and `AdvisorID` != 0 order by `Time` ASC Limit 30";
+                }
+
+                elseif ($advisor == '0') { 
+                    $sql = "select * from Proj2Appointments where `Time` like '%".$t."%' and `Time` > '".date('Y-m-d H:i:s')."' and `Time` like '%".$date."%' and `EnrolledNum` = 0 and `AdvisorID` = 0 order by `Time` ASC Limit 30";
+                }
+
+                // particular advisor wanted
+                else {
+                    $sql = "select * from Proj2Appointments where `Time` like '%".$t."%' and `Time` > '".date('Y-m-d H:i:s')."' and `Time` like '%".$date."%' and `EnrolledNum` = 0 and `AdvisorID` = ".$advisor." order by `Time` ASC Limit 30";
+                }
+            }   
+            
+            // by this point, all sql should be set for this block, so run query and push into array
+            $rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
+
+            $counter = 0;
+            while ($row = mysql_fetch_row($rs)) {
+                if($row[2] == 0) {
+                    $advName = "Group";
+                }
+                else {
+                    $advName = getAdvisorName($row); 
+                }
+                $found = "<tr><td>".date('l, F d, Y g:i A', strtotime($row[1]))."</td><td>".$advName."</td><td>".$row[3]."</td></tr>";
+                array_push($results, $found);
+                $counter++;
+            }
+
+            // FOR DEBUG ONLY
+            //echo "total query: ", $counter,"<br>";
+            //echo "query is: ", $sql;
             }
         }
-        if(empty($results)){
-            echo "No results found.<br><br>";
-        }
-        else{
-            echo("<table class='striped'><thead><tr><th>Time</th><th>Advisor</th><th>Major</th></tr></thead>\n");
-            foreach($results as $r) { 
-                echo($r."\n"); 
-            }
-            echo("</table>");
-        }
-    ?>
+    echo "<br>";
+    //By this point, the queries have been ran and the table's body has been constructed.
+    //time to finish off creating the head of the table and inserting the body
+    
+    if (empty($results)) {
+        echo"<h3>No results found</h3><br><br>";
+    }
+
+    else {
+        echo "<table class='striped'>
+                <thead>
+                    <tr>
+                        <th>Time:</th>
+                        <th>Advisor</th>
+                        <th>Major</th>
+                    </tr>
+                </thead>
+                <tbody>";
+                foreach($results as $r) {
+                    echo($r."\n");   
+                }
+            
+        echo "</tbody>
+            </table>";
+    }
+?>
+    
     <form action="02StudHome.php" method="link">
         <a id='done' class="waves-effect waves-light btn-large">Done</a>
 	   <input id='done-invis' style='display:none' type="submit" name="done" value="Done">

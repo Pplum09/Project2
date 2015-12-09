@@ -1,35 +1,52 @@
 <?php
 session_start();
 $debug = false;
-include('../CommonMethods.php');
+include('CommonMethods.php');
 $COMMON = new Common($debug);
+include("layoutHeader.php");
 ?>
-<?php
-    include("layoutHeader.php");
-?>
-<link rel="stylesheet" href="css/jquery.timepicker.css">
-<script src="js/jquery.timepicker.min.js"></script> 
     <h4 class="center">Search for Appointments</h4>
     <div class="row">
         <div class="col s4 offset-s4">
             <form id="search" action="11StudSearchResult.php" method="post" name="SearchApp">
                 <div>
-                    <a>Date<input id='date'type="date" name='date'class="datepicker"></a>
+                    <a>Date<input id='date'type="date" name='date' class="datepicker" value=""></a>
                 </div>
-                <div>
-                    <span>
-                    <div>Start Time:</div>
-                    <div>
-                        <input id='startTime' name="time[]">
-                    </div>
-                    </span>
-                    <span>
-                    <div>End Time:</div>
-                    <div>
-                        <input id='endTime'> 
-                    </div>
-                    </span>
-                </div> 
+                <div id='times'>
+                <h5>Times</h5>
+                    <input id='box1' type="checkbox" name='time[]' value='08:00:00'>
+                    <label for="box1">8:00AM - 8:30AM</label><br>
+                    <input id='box2'type="checkbox" name='time[]' value='08:30:00'>
+                    <label for="box2">8:30AM - 9:00AM</label><br>
+                    <input id='box3' type="checkbox" name='time[]' value='09:00:00'>
+                    <label for="box3">9:00AM - 9:30AM</label><br>
+                    <input id='box4' type="checkbox" name='time[]' value='09:30:00'>
+                    <label for="box4">9:30AM - 10:00AM</label><br>
+                    <input id='box5' type="checkbox" name='time[]' value='10:00:00'>
+                    <label for="box5">10:00AM - 10:30AM</label><br>
+                    <input id='box6' type="checkbox" name='time[]' value='10:30:00'>
+                    <label for="box6">10:30AM - 11:00AM</label><br>
+                    <input id='box7' type="checkbox" name='time[]' value='11:00:00'>
+                    <label for="box7">11:00AM - 11:30AM</label><br>
+                    <input id='box8' type="checkbox" name='time[]' value='11:30:00'>
+                    <label for="box8">11:30AM - 12:00AM</label><br>
+                    <input id='box9' type="checkbox" name='time[]' value='12:00:00'>
+                    <label for="box9">12:00PM - 12:30PM</label><br>
+                    <input id='box10' type="checkbox" name='time[]' value='12:30:00'>
+                    <label for="box10">12:30PM - 1:00PM</label><br>
+                    <input id='box11' type="checkbox" name='time[]' value='13:00:00'>
+                    <label for="box11">1:00PM - 1:30PM</label><br>
+                    <input id='box12' type="checkbox" name='time[]' value='13:30:00'>
+                    <label for="box12">1:30PM - 2:00PM</label><br>
+                    <input id='box13' type="checkbox" name='time[]' value='14:00:00'>
+                    <label for="box13">2:00PM - 2:30PM</label><br>
+                    <input id='box14'type="checkbox" name='time[]' value='14:30:00'>
+                    <label for="box14">2:30PM - 3:00PM</label><br>
+                    <input id='box15' type="checkbox" name='time[]' value='15:00:00'>
+                    <label for="box15">3:00PM - 3:30PM</label><br>
+                    <input id='box16'type="checkbox" name='time[]' value='15:30:00'>
+                    <label for="box16">3:30PM - 4:00PM</label><br>
+            </div>
                 <div>
                     <select id="advisor" name="advisor">
                         <option value="" selected>All Appointments</option>
@@ -55,49 +72,17 @@ $COMMON = new Common($debug);
 		</form>
 		</div>
     </div>
-<button id="test">TEST</button>
           <script>
               $(document).ready(function() {
                 $('select').material_select();
             });
               
-            $('#test').click(function() {
-                var startTime = $('#startTime').val();
-                var endTime = $('#endTime').val();
-                // holds am/pm info
-                var timeCheck = startTime.slice(-2);
-                
-                // just time
-                startTime = startTime.slice(0, -2);
-                
-                if (timeCheck == "pm") {
-                    var hour = starTime.slice(0, -2);
-                    var hourNum = parseInt(hour) + 12;
-                    hour = hourNum.toString();
-                    startTime = hour + startTime.slice(1, 4);
-                }
-                
-                timeCheck = endTime.slice(-2);
-                if (timeCheck == "pm") {
-                    var hour = endTime.slice(0, -2);
-                    var hourNum = parseInt(hour) + 12;
-                    hour = hourNum.toString();
-                    endTime = hour + endTime.slice(1, 4);
-                }
-                
-                $('#startTime').val() = startTime + ":00";
-                $('#endTime').val() = endTime + ":00";
-            });
-              
             $('.datepicker').pickadate({
                 selectMonths: true, // Creates a dropdown to control month
                 selectYears: 15, // Creates a dropdown of 15 years to control year
-                format: 'dd/mm/yyyy'
+                format: 'mm/dd/yyyy'
             });
-              
-            $('#startTime').timepicker({'step': 30});
-            $('#endTime').timepicker({'step': 30});
-          </script>
+            </script>
 <?php
     include("layoutFooter.php");
 ?>
